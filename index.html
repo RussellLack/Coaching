@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Executive OS — Coaching for AI-era professional transition</title>
+    <meta
+      name="description"
+      content="A coaching service for senior professionals working out which parts of their value AI will compress, which parts will become more important, and what to do about both."
+    />
+    <link rel="stylesheet" href="styles.css?v=20" />
+  </head>
+  <body>
+    <header class="site-header" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Executive OS home">
+        <span class="brand-mark" aria-hidden="true">EO</span>
+        <span>Executive OS</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#top">Offer</a>
+        <a href="#human-value">Human Value</a>
+        <a href="#assessment">Snapshot</a>
+        <a href="#deep-scan">Deep Scan</a>
+        <a href="#journeys">Journeys</a>
+      </nav>
+      <a class="nav-cta" href="#book">Book session</a>
+    </header>
+
+    <main id="top">
+      <section class="hero section-band">
+        <div class="hero-copy">
+          <p class="eyebrow">Human coaching for AI transition</p>
+          <h1>Where AI changes the work, judgement still has to be made.</h1>
+          <p class="hero-lede">
+            A coaching service for senior professionals working out which parts
+            of their value AI will compress, which parts will become more
+            important, and what to do about both.
+          </p>
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="button primary" href="#assessment">Take the snapshot</a>
+            <a class="button secondary" href="#book">Request a private session</a>
+          </div>
+          <dl class="positioning-strip" aria-label="What this service is and is not">
+            <div>
+              <dt>What this is</dt>
+              <dd>Confidential one-to-one coaching, with diagnostic support.</dd>
+            </div>
+            <div>
+              <dt>What it is not</dt>
+              <dd>AI training, generic executive coaching, or a self-serve tool.</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="hero-visual" aria-label="AI navigation system preview">
+          <img
+            src="assets/ai-navigation-visual.png"
+            alt="Abstract executive dashboard showing AI workflow nodes, decision paths and progress signals."
+          />
+          <div class="signal-card signal-card-a">
+            <strong>LEVERAGE</strong>
+            <span>Use AI to support judgement, not replace it.</span>
+          </div>
+          <div class="signal-card signal-card-b">
+            <strong>PURPOSE</strong>
+            <span>Translate experience into strategic range.</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="challenges" class="section section-grid">
+        <div>
+          <p class="eyebrow">The working context</p>
+          <h2>Experience still matters. Some operating models no longer do.</h2>
+          <p>
+            Many experienced professionals carry deep judgement and strong
+            networks, but work inside systems designed for a slower, more
+            human-paced operating environment. AI changes what those systems
+            are for.
+          </p>
+        </div>
+        <div class="challenge-list" aria-label="What experienced professionals describe">
+          <article>
+            <span class="index">01</span>
+            <h3>Cognitive overload</h3>
+            <p>The inputs have grown faster than the time available for judgement. The space in which difficult thinking used to happen is the space most easily lost.</p>
+          </article>
+          <article>
+            <span class="index">02</span>
+            <h3>Workflow drag</h3>
+            <p>Experienced judgement is still trapped inside repeatable work that AI could now do well. Reclaiming that time requires more than a tool — it requires a redesign of the rhythm itself.</p>
+          </article>
+          <article>
+            <span class="index">03</span>
+            <h3>Relevance, quietly questioned</h3>
+            <p>The work hasn't changed yet, but the way it is described to others is starting to feel insufficient. The instinct is to wait. Waiting is rarely the right response.</p>
+          </article>
+          <article>
+            <span class="index">04</span>
+            <h3>The influence gap</h3>
+            <p>Boards, teams and clients want a clearer account of what AI changes for the business. Many senior people have a view, but not yet a way of expressing it that lands.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="human-value" class="section human-value">
+        <div class="section-heading">
+          <p class="eyebrow">What AI cannot deliver</p>
+          <h2>The value is not the assessment. It is the human work that follows.</h2>
+          <p>
+            The diagnostic can identify patterns of pressure. Coaching helps a
+            person interpret those patterns, make sense of difficult choices and
+            change behaviour in a sustainable way.
+          </p>
+        </div>
+        <div class="human-value-grid" aria-label="Human coaching value">
+          <article>
+            <span>01</span>
+            <h3>Confidential reflection</h3>
+            <p>A private space where senior people can discuss uncertainty, fatigue, doubt and ambition without needing to perform confidence.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Pattern recognition in context</h3>
+            <p>Effective coaching connects repeated themes, avoided decisions and organisational context in a way standard advice cannot.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Constructive challenge</h3>
+            <p>Challenge is most useful when it is based on trust, timing and a clear understanding of the client’s responsibilities.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Accountability through transition</h3>
+            <p>AI can suggest actions. Coaching helps the person follow through when change is uncomfortable, complex or politically sensitive.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="assessment" class="section assessment-section">
+        <div class="section-heading">
+          <p class="eyebrow">AI Identity Snapshot</p>
+          <h2>Twelve questions, written for your role.</h2>
+          <p>
+            AI affects different professional roles in different ways. Select
+            the archetype closest to your work, then answer a focused
+            twelve-question snapshot. The reading is private, returns a named
+            position rather than a score, and takes about five minutes.
+          </p>
+        </div>
+
+        <div class="role-selector" aria-label="Assessment archetype selector">
+          <div class="selector-group">
+            <span class="selector-label">Organisational roles</span>
+            <div class="role-grid" id="organisationRoles"></div>
+          </div>
+          <div class="selector-group">
+            <span class="selector-label">Independent archetypes</span>
+            <div class="role-grid independent" id="independentRoles"></div>
+          </div>
+        </div>
+
+        <form class="assessment" id="readinessAssessment">
+          <div class="assessment-intro">
+            <p class="eyebrow" id="assessmentType">The Direction Setter</p>
+            <h3 id="assessmentName">Strategic Future Navigation Assessment</h3>
+            <p id="assessmentFocus">
+              Vision, positioning, prioritisation and strategic judgement.
+            </p>
+            <blockquote id="assessmentFear">
+              “Am I steering towards the future, or defending the past?”
+            </blockquote>
+            <div class="theme-strip" id="assessmentThemes" aria-label="Assessment themes"></div>
+          </div>
+
+          <div class="question-list" id="questionList"></div>
+
+          <div class="form-footer">
+            <button class="button primary" type="submit">Read your snapshot</button>
+            <p>Private by design. No answers leave this page.</p>
+          </div>
+        </form>
+
+        <aside class="result-panel" id="resultPanel" aria-live="polite" data-state="empty">
+          <div class="result-empty">
+            <p class="eyebrow">Snapshot result</p>
+            <h3>Your reading will appear here.</h3>
+            <p class="result-empty-copy">
+              Complete the snapshot to receive a named position, three specific
+              observations from your answers, and an indication of where the
+              Deep Navigation Scan would go further.
+            </p>
+            <ol class="result-empty-steps" aria-label="What the snapshot returns">
+              <li>A named position, not a score.</li>
+              <li>Three observations from your own answers.</li>
+              <li>One question the paid scan would test next.</li>
+            </ol>
+          </div>
+
+          <div class="result-filled" hidden>
+            <p class="eyebrow" id="resultEyebrow">Snapshot result</p>
+            <h3 id="resultTitle">Complete the snapshot</h3>
+            <p class="result-position-lede" id="resultCopy">
+              Your profile and suggested first journey will appear here.
+            </p>
+
+            <div class="result-observations" aria-label="Observations from your answers">
+              <p class="result-section-label">What the snapshot noticed</p>
+              <ol id="resultObservations"></ol>
+            </div>
+
+            <div class="result-tension" aria-label="What the paid scan would test next">
+              <p class="result-section-label">What the Deep Scan would test next</p>
+              <p id="resultTension"></p>
+            </div>
+
+            <div class="result-route" aria-label="Recommended coaching route">
+              <span>Recommended first journey</span>
+              <strong id="resultRoute"></strong>
+            </div>
+
+            <a class="button primary" id="reportLink" href="#deep-scan">
+              See what the Deep Scan adds
+            </a>
+          </div>
+        </aside>
+      </section>
+
+      <section id="preview" class="section preview-transition" hidden aria-label="Personalised paid preview">
+        <div class="section-heading">
+          <p class="eyebrow">What the Deep Scan would add</p>
+          <h2 id="previewHeadline">From snapshot to brief.</h2>
+          <p>
+            The snapshot identifies a pattern from your answers. The Deep
+            Navigation Scan replaces that pattern with a specific reading:
+            named exposures, a 30-day experiment, and an output tool you can
+            use in the work itself. Below is an excerpt of how the brief would
+            be written for the position you indicated.
+          </p>
+        </div>
+
+        <div class="locked-preview">
+          <article class="preview-card">
+            <p class="eyebrow">Excerpt — your Navigation Brief</p>
+            <h3 id="previewBriefTitle">AI Navigation Brief</h3>
+            <div class="brief-lines" aria-label="Sample brief lines">
+              <div>
+                <span>Where your value is most exposed</span>
+                <strong id="previewExposed">—</strong>
+              </div>
+              <div>
+                <span>Where your value is most defensible</span>
+                <strong id="previewDefensible">—</strong>
+              </div>
+              <div>
+                <span>The blind spot to test</span>
+                <strong id="previewBlindspot">—</strong>
+              </div>
+              <div class="locked-line">
+                <span>Your 30-day experiment</span>
+                <strong>Written for your role and snapshot — included in the Deep Scan.</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="preview-card tool-preview">
+            <p class="eyebrow">One navigation tool, applied</p>
+            <h3>Human / AI Decision Boundary</h3>
+            <p class="preview-lede">
+              The Deep Scan returns this map filled in against the work you
+              actually do. The values below are illustrative.
+            </p>
+            <div class="boundary-map" aria-label="Sample decision boundary map">
+              <div>
+                <span>Automate</span>
+                <strong>Status synthesis</strong>
+              </div>
+              <div>
+                <span>Augment</span>
+                <strong>Scenario comparison</strong>
+              </div>
+              <div>
+                <span>Protect</span>
+                <strong>Stakeholder judgement</strong>
+              </div>
+              <div>
+                <span>High-value human work</span>
+                <strong>Strategic narrative</strong>
+              </div>
+            </div>
+            <div class="preview-cta">
+              <a class="button primary" href="#deep-scan">Read what the Deep Scan includes</a>
+              <a class="button secondary" href="#book">Or speak to a coach first</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="deep-scan" class="section deep-scan">
+        <div class="section-heading">
+          <p class="eyebrow">Deep Navigation Scan</p>
+          <h2>Where the snapshot pauses, the brief becomes specific.</h2>
+          <p>
+            The Deep Scan does not replace coaching. It prepares the human
+            conversation. It produces an AI Navigation Brief that names what is
+            exposed, what is defensible, what should change, and where the
+            first coaching journey should begin — written in the language of
+            your role.
+          </p>
+        </div>
+
+        <div class="scan-delta" aria-label="What changes between snapshot and brief">
+          <article>
+            <span>Snapshot</span>
+            <h3>A pattern.</h3>
+            <p>Twelve questions return a named position and three observations.</p>
+          </article>
+          <article class="scan-delta-arrow" aria-hidden="true">
+            <span>→</span>
+          </article>
+          <article class="scan-delta-paid">
+            <span>Deep Scan</span>
+            <h3>A reading.</h3>
+            <p>Eight diagnostic modules, a written brief, a 30-day experiment, and one navigation tool prepared for your work.</p>
+          </article>
+        </div>
+
+        <div class="scan-layout">
+          <div class="scan-panel">
+            <div class="review-flow" aria-label="Paid scan journey">
+              <span>Paid scan journey</span>
+              <ol>
+                <li>Take the free snapshot</li>
+                <li>Complete the deeper diagnostic</li>
+                <li>Receive the navigation brief</li>
+                <li>Choose the first coaching journey</li>
+              </ol>
+            </div>
+            <div class="scan-panel-header">
+              <span class="status">Diagnostic modules</span>
+              <strong>Eight, completed in sequence</strong>
+            </div>
+            <div class="scan-modules" aria-label="Deep scan modules">
+              <article>
+                <span>01</span>
+                <h3>Identity Navigation Scan</h3>
+                <p>Clarifies the professional concern beneath the AI conversation.</p>
+              </article>
+              <article>
+                <span>02</span>
+                <h3>Workflow Leverage Audit</h3>
+                <p>Finds what to automate, augment, delegate or protect.</p>
+              </article>
+              <article>
+                <span>03</span>
+                <h3>Decision Quality Diagnostic</h3>
+                <p>Tests judgement under ambiguity, speed and uncertainty.</p>
+              </article>
+              <article>
+                <span>04</span>
+                <h3>Relevance Defensibility Index</h3>
+                <p>Identifies what makes the person’s value more difficult to commoditise.</p>
+              </article>
+              <article>
+                <span>05</span>
+                <h3>Influence & Trust Scan</h3>
+                <p>Assesses signal, authority and AI-era persuasion.</p>
+              </article>
+              <article>
+                <span>06</span>
+                <h3>Cognitive Load Audit</h3>
+                <p>Surfaces overload patterns and threat responses.</p>
+              </article>
+              <article>
+                <span>07</span>
+                <h3>Tooling Maturity Review</h3>
+                <p>Maps casual, tactical, systemic or strategic AI use.</p>
+              </article>
+              <article>
+                <span>08</span>
+                <h3>30-Day Experiment Plan</h3>
+                <p>Converts insight into one practical behaviour change.</p>
+              </article>
+            </div>
+          </div>
+
+          <aside class="navigation-brief" aria-label="AI Navigation Brief preview">
+            <p class="eyebrow">Generated output</p>
+            <h3>Your AI Navigation Brief</h3>
+            <ul>
+              <li>Where your value is most exposed</li>
+              <li>Where your value is most defensible</li>
+              <li>What should stop being manual</li>
+              <li>What AI should support, not own</li>
+              <li>The first 30-day experiment</li>
+              <li>The best-fit coaching journey</li>
+            </ul>
+            <div class="brief-route">
+              <span>Example route</span>
+              <strong>Workflow & Delegation + Relevance & Impact</strong>
+            </div>
+            <a class="button primary" href="#book">Discuss paid scan</a>
+          </aside>
+        </div>
+      </section>
+
+      <section id="journeys" class="section journeys">
+        <div class="section-heading compact">
+          <p class="eyebrow">Six-section coaching journey</p>
+          <h2>From assessment insight to practical change.</h2>
+        </div>
+        <div class="roadmap" aria-label="Coaching journey roadmap">
+          <article>
+            <span>01</span>
+            <h3>Awareness & Purpose</h3>
+            <p>Baseline scores, purpose statement and first decision matrix.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Workflow & Delegation</h3>
+            <p>Reclaim time through automation, delegation and sharper routines.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Relevance & Impact</h3>
+            <p>Position your expertise so it compounds in an AI-first market.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Resilience & Motivation</h3>
+            <p>Reduce threat responses and rebuild strategic confidence.</p>
+          </article>
+          <article>
+            <span>05</span>
+            <h3>Communication & Influence</h3>
+            <p>Shape messages that work for boards, teams and clients.</p>
+          </article>
+          <article>
+            <span>06</span>
+            <h3>Integration & Mastery</h3>
+            <p>Combine every tool into a personal AI navigation playbook.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="portal" class="section portal-preview">
+        <div class="portal-copy">
+          <p class="eyebrow">How a coaching section runs</p>
+          <h2>The relationship is the work. The tools support it.</h2>
+          <p>
+            Each of the six journeys runs as a sequence of five movements,
+            held over four to six weeks. The rhythm is the same: agree what
+            is true, see it clearly, talk it through, try one thing, and put
+            something durable in place.
+          </p>
+        </div>
+        <ol class="rhythm" aria-label="Rhythm of a coaching section">
+          <li>
+            <span class="rhythm-marker">i</span>
+            <div>
+              <h3>Definition of done</h3>
+              <p>A short, written agreement on what the section is for, and what would count as having finished it.</p>
+            </div>
+          </li>
+          <li>
+            <span class="rhythm-marker">ii</span>
+            <div>
+              <h3>Assessment</h3>
+              <p>A focused diagnostic on the area the section is for. Returns observations, not scores.</p>
+            </div>
+          </li>
+          <li>
+            <span class="rhythm-marker">iii</span>
+            <div>
+              <h3>Interpretation</h3>
+              <p>A written reading of what the assessment showed, prepared before the conversation.</p>
+            </div>
+          </li>
+          <li>
+            <span class="rhythm-marker">iv</span>
+            <div>
+              <h3>Conversation</h3>
+              <p>One or two private sessions, held under confidentiality. The point where most of the work happens.</p>
+            </div>
+          </li>
+          <li>
+            <span class="rhythm-marker">v</span>
+            <div>
+              <h3>Experiment and tool</h3>
+              <p>One small behavioural change tried in real conditions, and one navigation tool you keep.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section id="book" class="section booking">
+        <div>
+          <p class="eyebrow">Next step</p>
+          <h2>Request a private strategy session.</h2>
+          <p>
+            The first conversation maps where AI is creating pressure on your
+            role, where your judgement still matters most, what may be
+            difficult to address and which coaching journey should begin the
+            change. Sessions are private, held under confidentiality, and
+            taken on by mutual fit.
+          </p>
+          <ul class="booking-note" aria-label="What to expect">
+            <li>Held remotely, on a private line.</li>
+            <li>Sixty minutes, free of charge.</li>
+            <li>No notes are shared, kept or sold.</li>
+          </ul>
+        </div>
+        <form class="booking-form" aria-label="Strategy session enquiry">
+          <label>
+            Name
+            <input type="text" name="name" placeholder="Your name" />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="you@example.com" />
+          </label>
+          <label>
+            Role and organisation
+            <input type="text" name="role" placeholder="Optional — only what you would like to share" />
+          </label>
+          <label>
+            What would you want the first session to address?
+            <textarea name="priority" rows="4" placeholder="A short line is enough."></textarea>
+          </label>
+          <button class="button primary" type="submit">Request session</button>
+          <p class="booking-confidential">Replies are sent personally, not through an automated system.</p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Executive OS prototype. Built from the coaching briefing.</p>
+      <a href="#top">Back to top</a>
+    </footer>
+
+    <script src="app.js?v=20"></script>
+  </body>
+</html>
