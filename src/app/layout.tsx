@@ -4,6 +4,7 @@ import "./globals.css";
 import { ConsentProvider } from "@/components/ConsentProvider";
 import { CookieBanner } from "@/components/CookieBanner";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +48,7 @@ export default function RootLayout({
           {children}
           <CookieBanner />
         </ConsentProvider>
+            <Footer />
       </body>
     </html>
   );
