@@ -1,0 +1,39 @@
+# Netlify configuration — security headers for fab.partners
+# https://docs.netlify.com/routing/headers/
+
+[[headers]]
+  for = "/*"
+
+    [headers.values]
+        # Prevent clickjacking — disallow framing by other origins
+            X-Frame-Options = "SAMEORIGIN"
+
+                # Prevent MIME-type sniffing (already set by Netlify, kept explicit)
+                    X-Content-Type-Options = "nosniff"
+
+                        # Control referrer information sent to third-party sites
+                            Referrer-Policy = "strict-origin-when-cross-origin"
+
+                                # Restrict access to browser features not used by this site
+                                    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+
+                                        # Upgrade HSTS and add includeSubDomains + preload flag
+                                            # Once confirmed working, submit to https://hstspreload.org
+                                                Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+                                                    # Content Security Policy
+                                                        # - default-src 'self': only load resources from own origin by default
+                                                            # - script-src: allow own scripts + GTM/GA4 inline bootstrapping (unsafe-inline
+                                                                #   required by Next.js dataLayer snippet; tighten with nonces in future)
+                                                                    # - connect-src: allow GA4 beacons + Sanity CDN API calls
+                                                                        # - img-src: allow own images, data URIs (inline SVG), and GA4 pixel
+                                                                            # - style-src: Next.js injects critical CSS inline, so unsafe-inline is required
+                                                                                # - font-src: Geist fonts are self-hosted by Next.js at build time
+                                                                                    # - frame-src: Sanity Studio embeds iframes from sanity.io
+                                                                                        # - frame-ancestors: prevent this site being iframed (complements X-Frame-Options)
+                                                                                            # - base-uri: prevent base tag injection attacks
+                                                                                                # - form-action: only submit forms to own origin
+                                                                                                    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://*.sanity.io https://*.apicdn.sanity.io; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; frame-src 'self' https://*.sanity.io; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
+                                                                                                    
+                                                                                                        # Remove framework fingerprinting header (belt-and-suspenders alongside next.config.ts)
+                                                                                                            X-Powered-By = ""
