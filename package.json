@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@portabletext/react": "^6.2.0",
+    "@react-pdf/renderer": "^4.5.1",
     "@sanity/client": "^7.22.0",
     "@sanity/image-url": "^2.1.1",
     "@sanity/vision": "^5.26.0",
@@ -16,6 +18,7 @@
     "next-sanity": "^12.4.5",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "resend": "^6.12.4",
     "sanity": "^5.26.0",
     "styled-components": "^6.4.2"
   },
