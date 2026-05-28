@@ -134,18 +134,9 @@ export function PdfRadarWheel({
         const dx = s.labelX - cx
         const anchor = dx < -5 ? 'end' : dx > 5 ? 'start' : 'middle'
         return (
-          <SvgText
-            key={`label-${s.dim.id}`}
-            x={s.labelX}
-            y={s.labelY + 3}
-            fontSize={9}
-            fontFamily="Inter"
-            fontWeight={s.isHighlighted ? 600 : 400}
-            textAnchor={anchor}
-            fill={
+          <SvgText key={`label-${s.dim.id}`} x={s.labelX} y={s.labelY + 3} textAnchor={anchor} style={{ fontSize: 9, fontFamily: "Inter", fontWeight: s.isHighlighted ? 600 : 400, fill: 
               s.isHighlighted ? PDF_COLOURS.highlight : PDF_COLOURS.bodyText
-            }
-          >
+             }}>
             {s.dim.label}
           </SvgText>
         )

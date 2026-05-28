@@ -97,36 +97,13 @@ export function PdfQuadrant2x2({
         const weight = isDominant ? 600 : 400
         return (
           <G key={`lbl-${q.id}`}>
-            <SvgText
-              x={cx}
-              y={cy - 10}
-              fontSize={10}
-              fontFamily="Inter"
-              fontWeight={weight}
-              fill={colour}
-              textAnchor="middle"
-            >
+            <SvgText x={cx} y={cy - 10} textAnchor="middle" style={{ fontSize: 10, fontFamily: "Inter", fontWeight: weight, fill: colour }}>
               {labels?.line1 ?? q.id}
             </SvgText>
-            <SvgText
-              x={cx}
-              y={cy + 3}
-              fontSize={10}
-              fontFamily="Inter"
-              fontWeight={weight}
-              fill={colour}
-              textAnchor="middle"
-            >
+            <SvgText x={cx} y={cy + 3} textAnchor="middle" style={{ fontSize: 10, fontFamily: "Inter", fontWeight: weight, fill: colour }}>
               {labels?.line2 ?? ''}
             </SvgText>
-            <SvgText
-              x={cx}
-              y={cy + 18}
-              fontSize={8}
-              fontFamily="Inter"
-              fill={isDominant ? PDF_COLOURS.highlight : PDF_COLOURS.faint}
-              textAnchor="middle"
-            >
+            <SvgText x={cx} y={cy + 18} textAnchor="middle" style={{ fontSize: 8, fontFamily: "Inter", fill: isDominant ? PDF_COLOURS.highlight : PDF_COLOURS.faint }}>
               {count} {count === 1 ? 'pick' : 'picks'}
             </SvgText>
           </G>
@@ -152,44 +129,16 @@ export function PdfQuadrant2x2({
       />
 
       {/* Outer axis labels */}
-      <SvgText
-        x={gridLeft + gridWidth / 4}
-        y={gridTop + gridHeight + 22}
-        fontSize={9}
-        fontFamily="Inter"
-        fill={PDF_COLOURS.faint}
-        textAnchor="middle"
-      >
+      <SvgText x={gridLeft + gridWidth / 4} y={gridTop + gridHeight + 22} textAnchor="middle" style={{ fontSize: 9, fontFamily: "Inter", fill: PDF_COLOURS.faint }}>
         ANALYTICAL
       </SvgText>
-      <SvgText
-        x={midX + gridWidth / 4}
-        y={gridTop + gridHeight + 22}
-        fontSize={9}
-        fontFamily="Inter"
-        fill={PDF_COLOURS.faint}
-        textAnchor="middle"
-      >
+      <SvgText x={midX + gridWidth / 4} y={gridTop + gridHeight + 22} textAnchor="middle" style={{ fontSize: 9, fontFamily: "Inter", fill: PDF_COLOURS.faint }}>
         INTUITIVE
       </SvgText>
-      <SvgText
-        x={gridLeft - 8}
-        y={gridTop + gridHeight / 4 + 3}
-        fontSize={9}
-        fontFamily="Inter"
-        fill={PDF_COLOURS.faint}
-        textAnchor="end"
-      >
+      <SvgText x={gridLeft - 8} y={gridTop + gridHeight / 4 + 3} textAnchor="end" style={{ fontSize: 9, fontFamily: "Inter", fill: PDF_COLOURS.faint }}>
         MAXIMISER
       </SvgText>
-      <SvgText
-        x={gridLeft - 8}
-        y={midY + gridHeight / 4 + 3}
-        fontSize={9}
-        fontFamily="Inter"
-        fill={PDF_COLOURS.faint}
-        textAnchor="end"
-      >
+      <SvgText x={gridLeft - 8} y={midY + gridHeight / 4 + 3} textAnchor="end" style={{ fontSize: 9, fontFamily: "Inter", fill: PDF_COLOURS.faint }}>
         SATISFICER
       </SvgText>
 

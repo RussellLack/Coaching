@@ -71,56 +71,21 @@ export function PdfTimeShiftLines({
       ))}
 
       {/* Y-axis tick labels at extremes */}
-      <SvgText
-        x={PADDING.left - 6}
-        y={toY(0) + 3}
-        fontSize={8}
-        fontFamily="Inter"
-        fill={PDF_COLOURS.faint}
-        textAnchor="end"
-      >
+      <SvgText x={PADDING.left - 6} y={toY(0) + 3} textAnchor="end" style={{ fontSize: 8, fontFamily: "Inter", fill: PDF_COLOURS.faint }}>
         0
       </SvgText>
-      <SvgText
-        x={PADDING.left - 6}
-        y={toY(totalPoints) + 3}
-        fontSize={8}
-        fontFamily="Inter"
-        fill={PDF_COLOURS.faint}
-        textAnchor="end"
-      >
+      <SvgText x={PADDING.left - 6} y={toY(totalPoints) + 3} textAnchor="end" style={{ fontSize: 8, fontFamily: "Inter", fill: PDF_COLOURS.faint }}>
         {totalPoints}
       </SvgText>
 
       {/* X-axis labels */}
-      <SvgText
-        x={xPast}
-        y={height - 10}
-        fontSize={9}
-        fontFamily="Inter"
-        fill={PDF_COLOURS.muted}
-        textAnchor="middle"
-      >
+      <SvgText x={xPast} y={height - 10} textAnchor="middle" style={{ fontSize: 9, fontFamily: "Inter", fill: PDF_COLOURS.muted }}>
         THEN
       </SvgText>
-      <SvgText
-        x={xPresent}
-        y={height - 10}
-        fontSize={9}
-        fontFamily="Inter"
-        fill={PDF_COLOURS.muted}
-        textAnchor="middle"
-      >
+      <SvgText x={xPresent} y={height - 10} textAnchor="middle" style={{ fontSize: 9, fontFamily: "Inter", fill: PDF_COLOURS.muted }}>
         NOW
       </SvgText>
-      <SvgText
-        x={xFuture}
-        y={height - 10}
-        fontSize={9}
-        fontFamily="Inter"
-        fill={PDF_COLOURS.muted}
-        textAnchor="middle"
-      >
+      <SvgText x={xFuture} y={height - 10} textAnchor="middle" style={{ fontSize: 9, fontFamily: "Inter", fill: PDF_COLOURS.muted }}>
         THEN AGAIN
       </SvgText>
 
@@ -177,17 +142,7 @@ export function PdfTimeShiftLines({
         const isHighlighted =
           f.id === risingFactorId || f.id === fallingFactorId
         return (
-          <SvgText
-            key={`lbl-${f.id}`}
-            x={xFuture + 8}
-            y={toY(f.future) + 3}
-            fontSize={9}
-            fontFamily="Inter"
-            fontWeight={isHighlighted ? 600 : 400}
-            fill={isHighlighted ? PDF_COLOURS.highlight : PDF_COLOURS.muted}
-            opacity={isHighlighted ? 1 : 0.75}
-            textAnchor="start"
-          >
+          <SvgText key={`lbl-${f.id}`} x={xFuture + 8} y={toY(f.future) + 3} opacity={isHighlighted ? 1 : 0.75} textAnchor="start" style={{ fontSize: 9, fontFamily: "Inter", fontWeight: isHighlighted ? 600 : 400, fill: isHighlighted ? PDF_COLOURS.highlight : PDF_COLOURS.muted }}>
             {f.label}
           </SvgText>
         )

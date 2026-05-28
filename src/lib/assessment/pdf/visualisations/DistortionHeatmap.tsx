@@ -103,16 +103,7 @@ export function PdfDistortionHeatmap({
         const textY = rowY + ROW_HEIGHT / 2 + 3 // baseline-adjust
 
         return (
-          <SvgText
-            key={`lbl-${tag.id}`}
-            x={LABEL_COL_WIDTH - 4}
-            y={textY}
-            fontSize={9}
-            fontFamily="Inter"
-            fontWeight={isTop ? 600 : 400}
-            fill={isTop ? PDF_COLOURS.highlight : PDF_COLOURS.bodyText}
-            textAnchor="end"
-          >
+          <SvgText key={`lbl-${tag.id}`} x={LABEL_COL_WIDTH - 4} y={textY} textAnchor="end" style={{ fontSize: 9, fontFamily: "Inter", fontWeight: isTop ? 600 : 400, fill: isTop ? PDF_COLOURS.highlight : PDF_COLOURS.bodyText }}>
             {tag.label}
           </SvgText>
         )
@@ -123,16 +114,7 @@ export function PdfDistortionHeatmap({
         const textY = rowY + ROW_HEIGHT / 2 + 3
 
         return (
-          <SvgText
-            key={`cnt-${tag.id}`}
-            x={width - COUNT_COL_WIDTH + 6}
-            y={textY}
-            fontSize={9}
-            fontFamily="Inter"
-            fontWeight={isTop ? 600 : 400}
-            fill={isTop ? PDF_COLOURS.highlight : PDF_COLOURS.muted}
-            textAnchor="start"
-          >
+          <SvgText key={`cnt-${tag.id}`} x={width - COUNT_COL_WIDTH + 6} y={textY} textAnchor="start" style={{ fontSize: 9, fontFamily: "Inter", fontWeight: isTop ? 600 : 400, fill: isTop ? PDF_COLOURS.highlight : PDF_COLOURS.muted }}>
             {tag.count}
           </SvgText>
         )

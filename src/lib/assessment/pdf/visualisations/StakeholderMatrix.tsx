@@ -101,44 +101,16 @@ export function PdfStakeholderMatrix({
       />
 
       {/* Quadrant labels — faint, uppercase, in the corners */}
-      <SvgText
-        x={plotMin + 6}
-        y={plotMin + 14}
-        fontSize={8}
-        fontFamily="Inter"
-        fill={PDF_COLOURS.faint}
-        textAnchor="start"
-      >
+      <SvgText x={plotMin + 6} y={plotMin + 14} textAnchor="start" style={{ fontSize: 8, fontFamily: "Inter", fill: PDF_COLOURS.faint }}>
         ALLIES
       </SvgText>
-      <SvgText
-        x={plotMax - 6}
-        y={plotMin + 14}
-        fontSize={8}
-        fontFamily="Inter"
-        fill={PDF_COLOURS.faint}
-        textAnchor="end"
-      >
+      <SvgText x={plotMax - 6} y={plotMin + 14} textAnchor="end" style={{ fontSize: 8, fontFamily: "Inter", fill: PDF_COLOURS.faint }}>
         CHAMPIONS
       </SvgText>
-      <SvgText
-        x={plotMin + 6}
-        y={plotMax - 6}
-        fontSize={8}
-        fontFamily="Inter"
-        fill={PDF_COLOURS.faint}
-        textAnchor="start"
-      >
+      <SvgText x={plotMin + 6} y={plotMax - 6} textAnchor="start" style={{ fontSize: 8, fontFamily: "Inter", fill: PDF_COLOURS.faint }}>
         BACKGROUND
       </SvgText>
-      <SvgText
-        x={plotMax - 6}
-        y={plotMax - 6}
-        fontSize={8}
-        fontFamily="Inter"
-        fill={PDF_COLOURS.faint}
-        textAnchor="end"
-      >
+      <SvgText x={plotMax - 6} y={plotMax - 6} textAnchor="end" style={{ fontSize: 8, fontFamily: "Inter", fill: PDF_COLOURS.faint }}>
         RESISTANCE
       </SvgText>
 
@@ -151,14 +123,7 @@ export function PdfStakeholderMatrix({
           drops the Y-axis label because react-pdf's transform support is
           limited. If we ever need the rotated label, it can be done by
           placing each character in its own <Text> with manual y-offsets.) */}
-      <SvgText
-        x={size / 2}
-        y={size - 14}
-        fontSize={9}
-        fontFamily="Inter"
-        fill={PDF_COLOURS.muted}
-        textAnchor="middle"
-      >
+      <SvgText x={size / 2} y={size - 14} textAnchor="middle" style={{ fontSize: 9, fontFamily: "Inter", fill: PDF_COLOURS.muted }}>
         Influence →
       </SvgText>
 
@@ -187,16 +152,7 @@ export function PdfStakeholderMatrix({
         const labelY = p.y + 3
         const anchor = labelToRight ? 'start' : 'end'
         return (
-          <SvgText
-            key={`lbl-${p.row._key}`}
-            x={labelX}
-            y={labelY}
-            fontSize={9}
-            fontFamily="Inter"
-            fontWeight={500}
-            fill={PDF_COLOURS.ink}
-            textAnchor={anchor}
-          >
+          <SvgText key={`lbl-${p.row._key}`} x={labelX} y={labelY} textAnchor={anchor} style={{ fontSize: 9, fontFamily: "Inter", fontWeight: 500, fill: PDF_COLOURS.ink }}>
             {truncate(p.row.initials ?? '', 14)}
           </SvgText>
         )

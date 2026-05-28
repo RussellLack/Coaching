@@ -92,15 +92,7 @@ export function PdfDimensionBars({
         return (
           <G key={dim._key}>
             {/* Label — left aligned within its column */}
-            <SvgText
-              x={0}
-              y={textY}
-              fontSize={10}
-              fontFamily="Inter"
-              fontWeight={labelWeight}
-              fill={labelColour}
-              textAnchor="start"
-            >
+            <SvgText x={0} y={textY} textAnchor="start" style={{ fontSize: 10, fontFamily: "Inter", fontWeight: labelWeight, fill: labelColour }}>
               {dim.label}
             </SvgText>
 
@@ -129,15 +121,7 @@ export function PdfDimensionBars({
             )}
 
             {/* Score value — right aligned */}
-            <SvgText
-              x={width}
-              y={textY}
-              fontSize={10}
-              fontFamily="Inter"
-              fontWeight={400}
-              fill={PDF_COLOURS.ink}
-              textAnchor="end"
-            >
+            <SvgText x={width} y={textY} textAnchor="end" style={{ fontSize: 10, fontFamily: "Inter", fontWeight: 400, fill: PDF_COLOURS.ink }}>
               {score.toFixed(1)}
             </SvgText>
           </G>
