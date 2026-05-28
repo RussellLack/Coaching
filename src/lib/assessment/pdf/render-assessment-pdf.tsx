@@ -178,11 +178,14 @@ function renderPortableText(blocks: PortableTextBlock[] | undefined): ReactEleme
     }>).map((child, j) => {
       const text = child.text ?? ''
       const marks = child.marks ?? []
-      const style: Record<string, unknown> = {}
-      if (marks.includes('em')) Object.assign(style, styles.em)
-      if (marks.includes('strong')) Object.assign(style, styles.strong)
+      // Build a style array; @react-pdf/renderer composes them left-to-right.
+      // This is type-safe — using a mutable Object.assign on a plain object
+      // loses the Style type and triggers a TS error on Text's style prop.
+      const markStyles = []
+      if (marks.includes('em')) markStyles.push(styles.em)
+      if (marks.includes('strong')) markStyles.push(styles.strong)
       return (
-        <Text key={child._key ?? j} style={style}>
+        <Text key={child._key ?? j} style={markStyles}>
           {text}
         </Text>
       )
