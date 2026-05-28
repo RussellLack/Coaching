@@ -1,5 +1,32 @@
 @import "tailwindcss";
 
+/* ============================================================
+ * Tailwind v4 theme tokens
+ * Maps brand colours to Tailwind utility classes (bg-teal,
+ * text-cream, etc.). The duplicated values below — --color-*
+ * here, --* in :root — exist because legacy components reference
+ * the unprefixed variables and the new assessment components
+ * reference the prefixed ones via Tailwind utilities. Both sets
+ * resolve to the same values; consolidating is a future cleanup.
+ * ============================================================ */
+@theme {
+  --color-teal: #0d2b2e;
+  --color-teal-mid: #1a4a4f;
+  --color-teal-light: #2d7a7f;
+  --color-coral: #e34234;
+  --color-mauve: #c71585;
+  --color-cream: #f5f0eb;
+  --color-cream-muted: #d8d2cc;
+  --color-cream-dim: #a89e95;
+  --color-ink: #1a1a1a;
+
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: "Helvetica Neue", Arial, sans-serif;
+
+  --container-prose: 65ch;
+  --container-screen: 720px;
+}
+
 :root {
   --teal: #0d2b2e;
   --teal-mid: #1a4a4f;
@@ -29,4 +56,142 @@ body {
 
 .sans {
   font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ============================================================
+ * Assessment body-prose styling
+ * Scoped to .fab-prose to avoid leaking into existing pages.
+ * ============================================================ */
+
+.fab-prose {
+  color: var(--color-cream);
+  font-family: var(--font-serif);
+  line-height: 1.65;
+  max-width: var(--container-prose);
+}
+
+.fab-prose p {
+  margin-bottom: 1rem;
+}
+
+.fab-prose p:last-child {
+  margin-bottom: 0;
+}
+
+.fab-prose em {
+  font-style: italic;
+}
+
+.fab-prose strong {
+  font-weight: 600;
+}
+
+.fab-prose h3 {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-cream);
+}
+
+.fab-prose a {
+  color: var(--color-cream);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.fab-prose a:hover {
+  color: var(--color-coral);
+}
+
+/* ============================================================
+ * Slider 0–10 styling (Assessment 2: Resilience Wheel)
+ * Cross-browser native <input type="range"> styling — kept verbose
+ * because the WebKit / Mozilla pseudo-elements can't be combined.
+ * ============================================================ */
+
+.fab-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 28px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.fab-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  background: var(--color-teal-mid);
+  border-radius: 2px;
+}
+
+.fab-slider::-moz-range-track {
+  height: 4px;
+  background: var(--color-teal-mid);
+  border-radius: 2px;
+}
+
+.fab-slider::-moz-range-progress {
+  height: 4px;
+  background: var(--color-coral);
+  border-radius: 2px;
+}
+
+.fab-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-cream);
+  border: 2px solid var(--color-coral);
+  margin-top: -8px;
+  cursor: grab;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.fab-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.fab-slider:active::-webkit-slider-thumb,
+.fab-slider:focus::-webkit-slider-thumb {
+  cursor: grabbing;
+  box-shadow: 0 0 0 6px rgba(227, 66, 52, 0.2);
+}
+
+.fab-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-cream);
+  border: 2px solid var(--color-coral);
+  cursor: grab;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.fab-slider::-moz-range-thumb:hover {
+  transform: scale(1.1);
+}
+
+.fab-slider:active::-moz-range-thumb,
+.fab-slider:focus::-moz-range-thumb {
+  cursor: grabbing;
+  box-shadow: 0 0 0 6px rgba(227, 66, 52, 0.2);
+}
+
+.fab-slider--unanswered::-webkit-slider-thumb {
+  background: var(--color-teal-mid);
+  border-color: var(--color-cream-dim);
+}
+
+.fab-slider--unanswered::-moz-range-thumb {
+  background: var(--color-teal-mid);
+  border-color: var(--color-cream-dim);
+}
+
+.fab-slider:focus-visible {
+  outline: none;
 }
