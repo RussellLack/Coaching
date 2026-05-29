@@ -115,7 +115,7 @@ Already present (used by existing site):
 
 New (server-only, set in Netlify):
 - `RESEND_API_KEY` — get from resend.com → API Keys
-- `RESEND_FROM_EMAIL` — must be on a domain verified in Resend (e.g. `Fab Partners <hello@fab.partners>`)
+- `RESEND_FROM_EMAIL` — must be on a domain verified in Resend (e.g. `Fab Partners <[email address in env vars]>`)
 
 Optional:
 - `CRM_WEBHOOK_URL` — forwards completed submissions to Zapier/Make/HubSpot
@@ -403,6 +403,6 @@ In rough priority order:
 2. **The stable_shape threshold for Assessment 6** — currently hard-coded at `total_drift_magnitude < 6` (in code and in the tier condition). Worth revisiting once we see actual drift distributions. If most leaders fall under 6, the threshold should probably move lower; if almost nobody does, the meta-pattern read becomes less useful.
 3. **The AI-relative distortions Substack post** — flagged in the Assessment 4 turn. Still the strongest piece of seed content the practice could publish before going live. Burns/Beck's ten distortions are well-established; "AI-magnification" and "AI-minimisation" as distinct family members are genuinely new intellectual content.
 4. **Migrate `assessmentsIndexSettings` into `siteSettings`** — currently the assessments-index page copy lives in its own singleton document. If editorial pattern is "all global page copy under Site Settings", folding it in is a trivial migration. Kept separate for now because the page copy is its own surface and worth editing without scrolling past the homepage hero.
-5. **Privacy notice review** — `/privacy` ships with placeholder content that describes the actual data flows in plain English. Worth reviewing before traffic — particularly the retention claim (12 months) which should match the actual cadence Russell intends to apply, and the contact email which is set to `russell@fab.partners`. Easy to convert this page into a Sanity-managed document if editorial control is wanted, but unnecessary while it's stable.
+5. **Privacy notice review** — `/privacy` ships with placeholder content that describes the actual data flows in plain English. Worth reviewing before traffic — particularly the retention claim (12 months) which should match the actual cadence Russell intends to apply, and the contact email which is set to `[email address in env vars]`. Easy to convert this page into a Sanity-managed document if editorial control is wanted, but unnecessary while it's stable.
 6. **Submission retention policy** — submission records grow unboundedly. For a low-volume site this isn't an immediate issue, but worth thinking about: a Sanity GROQ scheduled function (or a Netlify scheduled function calling Sanity) could delete submissions older than, say, 12 months. The cross-combination matching only needs recent history anyway. Defer until data volume warrants it. The privacy notice already claims 12 months — implementing actual deletion would bring practice in line with claim.
 7. **Additional cross-combinations** — only two are seeded. There are at least a dozen more diagnostic ones across the six assessments. Worth Russell drafting more as he sees patterns in real user data; the schema and dispatch logic are now in place to support them with no code changes.
