@@ -1,15 +1,15 @@
 "use client";
 
 interface PostResultCTAProps {
-  tier: string;
+  tierId: string;
   bookingUrl: string;
 }
 
-export function PostResultCTA({ tier, bookingUrl }: PostResultCTAProps) {
-  const isReady = tier === "ready";
-  const isAlmost = tier === "almost-ready";
-  const isReadyWithGap = tier === "ready-with-gap";
-  const isNotYet = tier === "not-yet";
+export function PostResultCTA({ tierId, bookingUrl }: PostResultCTAProps) {
+  const isReady = tierId === "ready";
+  const isAlmost = tierId === "almost-ready";
+  const isReadyWithGap = tierId === "ready-with-gap";
+  const isNotYet = tierId === "not-yet";
 
   const heading = isReady || isReadyWithGap
     ? "Your result is a starting point, not a verdict."

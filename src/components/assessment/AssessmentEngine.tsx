@@ -391,7 +391,7 @@ function ResultScreen({
       )}
     
         <PostResultCTA
-          tier={result?.tier ?? 'not-yet'}
+          tierId={result?.tier ?? 'not-yet'}
           bookingUrl={bookingUrl}
         />
 </section>
