@@ -291,8 +291,8 @@ interface ResultScreenProps {
   result: {
     scoring: ReturnType<typeof score>
     matched: NonNullable<ReturnType<typeof matchTier>>
-    bookingUrl?: string
-}
+  }
+  bookingUrl?: string
   email: string
   onEmailChange: (v: string) => void
   onSubmit: (e: React.FormEvent) => void
