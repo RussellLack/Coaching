@@ -1,214 +1,176 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import { ManageCookiesLink } from '@/components/ManageCookiesLink'
-
-/**
- * Privacy notice — placeholder content for fab.partners.
- *
- * This page is intentionally written in plain English rather than legal
- * boilerplate. It states what data is collected, by whom, why, and how
- * to opt out. It does NOT attempt to function as a full legal privacy
- * policy — Russell should review and replace before any meaningful
- * traffic push.
- *
- * What this page is for:
- *   1. Giving the consent banner something to link to (a GDPR/PECR
- *      requirement — the user must be able to read what they're
- *      consenting to before they consent).
- *   2. Documenting the actual data flows: GA4 analytics, assessment
- *      submission data, the cross-combination email nudge logic.
- *      These should be reviewed against Russell's actual practices.
- *
- * What this page is NOT:
- *   - A substitute for legal review. The language is conservative but
- *     this isn't a lawyer's privacy policy.
- *   - A cookie list. GA4 sets a small number of cookies (_ga, _ga_*);
- *     a full cookie audit would list each name, purpose, lifetime, and
- *     domain. Defer until volume warrants.
- *
- * The page is a server component for performance. The "Manage cookies"
- * button is the one client-component island.
- */
+import type { Metadata } from "next";
+import Link from "next/link";
+import { CookiePreferencesButton } from "@/components/CookiePreferencesButton";
 
 export const metadata: Metadata = {
-  title: 'Privacy notice — fab.partners',
+  title: "Privacy notice — Fab Partners",
   description:
-    'How fab.partners handles your data, including assessment results, email submissions, and analytics.',
-}
+    "How Fab Partners handles personal data on this website and in coaching engagements.",
+};
 
 export default function PrivacyPage() {
   return (
     <main
       style={{
-        maxWidth: 680,
-        margin: '0 auto',
-        padding: '64px 24px 96px',
-        fontFamily: 'Georgia, "Times New Roman", serif',
-        fontSize: 17,
+        maxWidth: "44rem",
+        margin: "0 auto",
+        padding: "4rem 1.5rem 6rem",
         lineHeight: 1.65,
-        color: '#f5f0eb',
       }}
     >
+      <p style={{ marginBottom: "0.5rem", fontSize: "0.8rem", letterSpacing: "0.08em", textTransform: "uppercase", opacity: 0.6 }}>
+        Privacy
+      </p>
       <h1
         style={{
-          fontSize: 36,
-          fontWeight: 400,
-          margin: '0 0 8px 0',
-          color: '#f5f0eb',
+          fontSize: "2.25rem",
+          fontFamily: "var(--font-geist-sans), serif",
+          fontWeight: 500,
+          lineHeight: 1.2,
+          margin: "0 0 2rem",
         }}
       >
-        Privacy notice
+        How we handle your data.
       </h1>
-      <p
-        style={{
-          margin: '0 0 32px 0',
-          color: '#A89A82',
-          fontSize: 14,
-        }}
-      >
-        Last updated: May 2026
+
+      <p>
+        Fab Partners offers private coaching for senior professionals
+        navigating AI disruption. The practice rests on confidentiality, and
+        we take a deliberately minimal approach to personal data — both
+        because it is required of us under EU and EEA data protection law,
+        and because the work itself depends on trust.
       </p>
 
-      <h2 style={hStyle}>What we collect, and why</h2>
-      <p style={pStyle}>
-        fab.partners is a small coaching practice. We collect the minimum
-        data needed to run the assessments and follow up with people
-        who&rsquo;ve asked us to.
+      <p>
+        This notice explains what we collect, why, how long we keep it, and
+        what rights you have. It applies to fab.partners and to the coaching
+        engagements that follow from it. Last updated: 25 May 2026.
       </p>
 
-      <h3 style={h3Style}>Assessment submissions</h3>
-      <p style={pStyle}>
-        When you complete an assessment and enter your email to receive
-        the PDF, we store:
-      </p>
-      <ul style={ulStyle}>
-        <li>Your email address.</li>
-        <li>
-          The assessment you took and the result you reached (the named
-          tier, the interpretation keys that contributed to it, and the
-          CRM tags we use to organise leads).
-        </li>
-        <li>The time you submitted.</li>
-      </ul>
-      <p style={pStyle}>
-        We use this to send you the PDF, to track which assessments are
-        useful enough to keep building, and — if you take more than one
-        assessment — to notice patterns across your results that might
-        be worth bringing up.
-      </p>
-      <p style={pStyle}>
-        For one assessment (the Support Matrix), you&rsquo;ll enter the
-        names of people in your stakeholder map. Those names never
-        leave your browser. Only the initials reach our servers — we
-        can&rsquo;t see who you mapped.
+      <h2 style={sectionHeading}>Who we are</h2>
+      <p>
+        The data controller is <strong>Fab Partners AS</strong>,
+        organisasjonsnummer 932 443 511, registered at Sognsveien 118C,
+        0860 Oslo, Norway. For any question about your data, contact{" "}
+        <a href="mailto:hello@fab.partners" style={linkStyle}>
+          hello@fab.partners
+        </a>
+        .
       </p>
 
-      <h3 style={h3Style}>Analytics</h3>
-      <p style={pStyle}>
-        If you accept the cookie banner, we use Google Analytics 4 to
-        understand which assessments people visit and which they
-        complete. We don&rsquo;t send your email, your assessment
-        answers, or any personal information to Google. The events we
-        track are all about the assessment lifecycle — started,
-        completed, submitted — plus which entry points (archetype tile,
-        directory link) people click on.
-      </p>
-      <p style={pStyle}>
-        Google Analytics anonymises IP addresses by default. If you
-        decline analytics, no Google scripts load and no analytics
-        cookies are set.
+      <h2 style={sectionHeading}>What we collect on this website</h2>
+      <p>
+        We use Google Analytics 4 to understand, in aggregate, how the site
+        is used — pages viewed, broad geography, device type, how people
+        arrived. Google Consent Mode v2 is configured so that{" "}
+        <strong>no analytics cookies and no identifying data are set or
+          sent until you actively accept the cookie banner</strong>. If you
+        decline, we receive a cookieless ping for the page — a single
+        anonymous beacon that tells us a visit happened, with no profile
+        attached. IP addresses are anonymised. We do not use Google
+        Analytics for advertising, do not run ad-personalisation signals,
+        and do not pass your data on to advertising platforms.
       </p>
 
-      <h2 style={hStyle}>Who sees this data</h2>
-      <p style={pStyle}>
-        Russell Lack runs fab.partners and is the only person with
-        access to the submission records. We use Sanity to store the
-        data and Resend to send the PDF emails — neither of them
-        accesses your information for any purpose other than running
-        these services for us.
-      </p>
-      <p style={pStyle}>
-        We don&rsquo;t sell data, share it with third-party advertisers,
-        or use it to train AI models.
+      <h2 style={sectionHeading}>What we collect when you contact us</h2>
+      <p>
+        If you take the free snapshot, request a strategy session, or email
+        us at hello@fab.partners, we receive whatever you choose to share —
+        typically a name, an email address, and a short description of your
+        situation. We use this only to respond to you. We do not add you to
+        a mailing list, and we do not pass your details to any third party.
       </p>
 
-      <h2 style={hStyle}>How long we keep it</h2>
-      <p style={pStyle}>
-        Assessment submission records are retained while they&rsquo;re
-        useful for spotting cross-assessment patterns — practically,
-        about twelve months. After that they&rsquo;re deleted. If
-        you&rsquo;d like us to delete your records sooner, email Russell
-        and we&rsquo;ll do it within a working week.
+      <h2 style={sectionHeading}>What happens inside a coaching engagement</h2>
+      <p>
+        The substance of coaching conversations belongs to you. Notes we
+        keep are minimal, kept only for as long as is useful to the work,
+        and never shared with anyone outside the engagement. AI systems are
+        not used to process, transcribe, or train on the content of
+        coaching sessions. If at any point you want our notes deleted, we
+        will do so on request.
       </p>
 
-      <h2 style={hStyle}>Your choices</h2>
-      <ul style={ulStyle}>
-        <li>
-          <strong>Cookies and analytics:</strong>{' '}
-          <ManageCookiesLink label="Change your cookie preference" />.
-        </li>
-        <li>
-          <strong>Delete your data:</strong> email Russell at the
-          address below and we&rsquo;ll remove your submission records.
-        </li>
-        <li>
-          <strong>Stop receiving the nudge emails:</strong> reply to
-          any of them with &ldquo;please stop&rdquo; and we will.
-          We&rsquo;re a small practice; there&rsquo;s no list to
-          unsubscribe from beyond the one Russell maintains by hand.
-        </li>
-      </ul>
+      <h2 style={sectionHeading}>How long we keep things</h2>
+      <p>
+        Analytics data is retained for 14 months in Google Analytics and
+        then automatically deleted. Email correspondence is kept for as
+        long as the conversation is active and for a short period
+        afterwards, then archived or deleted. Coaching notes are kept only
+        for the duration of an engagement plus a short handover period,
+        unless you ask us to retain them longer or delete them sooner.
+      </p>
 
-      <h2 style={hStyle}>Contact</h2>
-      <p style={pStyle}>
-        Email Russell at{' '}
-        <Link
-          href="mailto:russell@fab.partners"
-          style={{ color: '#0F4C5C', textDecoration: 'underline' }}
+      <h2 style={sectionHeading}>Who else processes data on our behalf</h2>
+      <p>
+        Google Ireland Limited (Google Analytics) processes anonymised
+        website usage data. Netlify, Inc. hosts the website itself. Both
+        are bound by their own data processing terms; we do not share
+        coaching content with either, and neither has access to anything
+        beyond standard infrastructure logs.
+      </p>
+
+      <h2 style={sectionHeading}>Your rights</h2>
+      <p>
+        Under the EU and EEA General Data Protection Regulation, you have
+        the right to access the personal data we hold about you, to have it
+        corrected if it is wrong, to have it deleted, to restrict or object
+        to its processing, and to receive a copy in a portable format.
+        Email{" "}
+        <a href="mailto:hello@fab.partners" style={linkStyle}>
+          hello@fab.partners
+        </a>{" "}
+        and we will respond within one business day, and complete the
+        request within one month. If you believe we have mishandled your
+        data, you may lodge a complaint with Datatilsynet, the Norwegian
+        Data Protection Authority, at{" "}
+        <a
+          href="https://www.datatilsynet.no/"
+          style={linkStyle}
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          russell@fab.partners
-        </Link>{' '}
-        for anything related to your data.
+          datatilsynet.no
+        </a>
+        .
       </p>
 
-      <p
-        style={{
-          marginTop: 48,
-          color: '#A89A82',
-          fontSize: 14,
-        }}
-      >
-        This is a working document. If you spot something that needs
-        clarifying, tell us — we&rsquo;d rather fix it than dress it up.
+      <h2 style={sectionHeading}>Cookie preferences</h2>
+      <p>
+        You can change your cookie choice at any time. The button below
+        clears your current preference and brings the banner back so you
+        can choose again.
+      </p>
+      <div style={{ margin: "1.5rem 0 2rem" }}>
+        <CookiePreferencesButton />
+      </div>
+
+      <h2 style={sectionHeading}>Changes to this notice</h2>
+      <p>
+        If we change how we handle data, we will update this page and adjust
+        the date at the top. Material changes will be flagged on the
+        homepage.
+      </p>
+
+      <p style={{ marginTop: "3rem", opacity: 0.7, fontSize: "0.9rem" }}>
+        <Link href="/" style={linkStyle}>
+          ← Back to fab.partners
+        </Link>
       </p>
     </main>
-  )
+  );
 }
 
-// ── INLINE STYLES ───────────────────────────────────────────────────────
-// Kept inline so the page doesn't depend on global Tailwind classes
-// that may evolve. The privacy page is a stable surface where the
-// styling shouldn't drift as the rest of the site does.
+const sectionHeading = {
+  fontSize: "1.05rem",
+  fontWeight: 600,
+  letterSpacing: "0.01em",
+  marginTop: "2.5rem",
+  marginBottom: "0.75rem",
+} as const;
 
-const hStyle: React.CSSProperties = {
-  fontSize: 22,
-  fontWeight: 500,
-  margin: '40px 0 12px 0',
-  color: '#f5f0eb',
-}
-
-const h3Style: React.CSSProperties = {
-  fontSize: 18,
-  fontWeight: 500,
-  margin: '24px 0 8px 0',
-  color: '#f5f0eb',
-}
-
-const pStyle: React.CSSProperties = {
-  margin: '0 0 16px 0',
-}
-
-const ulStyle: React.CSSProperties = {
-  margin: '0 0 16px 0',
-  paddingLeft: 24,
-}
+const linkStyle = {
+  color: "inherit",
+  textDecoration: "underline",
+  textUnderlineOffset: "3px",
+} as const;
