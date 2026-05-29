@@ -342,10 +342,10 @@ function AssessmentPdf({ assessment, payload }: AssessmentPdfProps) {
           <Text style={{ fontFamily: 'Helvetica', fontSize: 14, color: COLOURS.surface, lineHeight: 1.4, marginBottom: 20, maxWidth: 400 }}>
             This document reflects where you are now, on the specific questions this diagnostic asks. It is not a complete picture.
           </Text>
-          <Text style={{ fontFamily: 'Helvetica', fontSize: 11, color: COLOURS.bodyMuted, lineHeight: 1.6, maxWidth: 400, marginBottom: 32 }}>
+          <Text style={{ fontFamily: 'Helvetica', fontSize: 11, color: COLOURS.muted, lineHeight: 1.6, maxWidth: 400, marginBottom: 32 }}>
             A 45-minute strategy session with a coach can do something a diagnostic cannot: it can hold a conversation about what to do next, in the context of everything else you know about your situation.
           </Text>
-          <Text style={{ fontFamily: 'Helvetica', fontSize: 11, color: COLOURS.bodyMuted, lineHeight: 1.6, maxWidth: 400, marginBottom: 32 }}>
+          <Text style={{ fontFamily: 'Helvetica', fontSize: 11, color: COLOURS.muted, lineHeight: 1.6, maxWidth: 400, marginBottom: 32 }}>
             If you would like to have that conversation, request a session at fab.partners. All conversations confidential. Responses within one business day.
           </Text>
           <Text style={{ fontFamily: 'Helvetica', fontSize: 10, color: COLOURS.highlight, letterSpacing: 1 }}>
@@ -353,8 +353,8 @@ function AssessmentPdf({ assessment, payload }: AssessmentPdfProps) {
           </Text>
         </View>
         <View style={{ borderTop: '0.5px solid rgba(255,255,255,0.15)', padding: '12 48', flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={{ fontFamily: 'Helvetica', fontSize: 8, color: COLOURS.dimmed }}>Executive OS — fab.partners</Text>
-          <Text style={{ fontFamily: 'Helvetica', fontSize: 8, color: COLOURS.dimmed }}>Private coaching practice. All conversations confidential.</Text>
+          <Text style={{ fontFamily: 'Helvetica', fontSize: 8, color: COLOURS.dim }}>Executive OS — fab.partners</Text>
+          <Text style={{ fontFamily: 'Helvetica', fontSize: 8, color: COLOURS.dim }}>Private coaching practice. All conversations confidential.</Text>
         </View>
       </Page>
 
