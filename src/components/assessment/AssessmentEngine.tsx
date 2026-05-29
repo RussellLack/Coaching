@@ -291,7 +291,7 @@ interface ResultScreenProps {
   result: {
     scoring: ReturnType<typeof score>
     matched: NonNullable<ReturnType<typeof matchTier>>
-    bookingUrl: string
+    bookingUrl?: string
 }
   email: string
   onEmailChange: (v: string) => void
@@ -308,7 +308,7 @@ function ResultScreen({
   onSubmit,
   isSubmitting,
   submissionError,
-  bookingUrl,
+  bookingUrl = 'mailto:hello@fab.partners?subject=Strategy session request',
 }: ResultScreenProps) {
   const { tier, interpretations, scoring } = result.matched
   return (
