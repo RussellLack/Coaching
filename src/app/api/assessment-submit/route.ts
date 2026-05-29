@@ -33,7 +33,7 @@ import type {
  *
  * Required env vars:
  *   RESEND_API_KEY              — transactional email
- *   RESEND_FROM_EMAIL           — sender (e.g. "Russell Lack <russell@fab.partners>")
+ *   RESEND_FROM_EMAIL           — sender address (configured in Netlify environment variables)
  *
  * Optional:
  *   CRM_WEBHOOK_URL             — Zapier/Make/HubSpot endpoint
