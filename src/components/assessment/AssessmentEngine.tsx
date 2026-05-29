@@ -389,7 +389,12 @@ function ResultScreen({
           <PortableText value={assessment.postCaptureCtaCopy} />
         </div>
       )}
-    </section>
+    
+        <PostResultCTA
+          tier={result?.tier ?? 'not-yet'}
+          bookingUrl={bookingUrl}
+        />
+</section>
   )
 }
 

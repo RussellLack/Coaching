@@ -54,7 +54,9 @@ export default async function AssessmentPage({ params }: PageProps) {
       <AssessmentEngine
         assessment={assessment as Assessment}
         defaultWebformEndpoint={settings?.defaultWebformEndpoint ?? undefined}
-      />
+      
+          bookingUrl={siteSettings?.defaultCalendarUrl || `mailto:${siteSettings?.bookingEmail || 'hello@fab.partners'}`}
+        />
     </main>
   )
 }
