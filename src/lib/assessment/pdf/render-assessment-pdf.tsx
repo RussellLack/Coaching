@@ -332,6 +332,32 @@ function AssessmentPdf({ assessment, payload }: AssessmentPdfProps) {
         </View>
         <PageFooter assessment={assessment} />
       </Page>
+    
+      {/* Next Steps page */}
+      <Page size="A4" style={styles.page}>
+        <View style={{ flex: 1, justifyContent: 'center', padding: 48 }}>
+          <Text style={{ fontFamily: 'Helvetica', fontSize: 8, letterSpacing: 2, color: COLOURS.coral, marginBottom: 20 }}>
+            Your result is a starting point.
+          </Text>
+          <Text style={{ fontFamily: 'Helvetica', fontSize: 14, color: COLOURS.cream, lineHeight: 1.4, marginBottom: 20, maxWidth: 400 }}>
+            This document reflects where you are now, on the specific questions this diagnostic asks. It is not a complete picture.
+          </Text>
+          <Text style={{ fontFamily: 'Helvetica', fontSize: 11, color: COLOURS.bodyMuted, lineHeight: 1.6, maxWidth: 400, marginBottom: 32 }}>
+            A 45-minute strategy session with a coach can do something a diagnostic cannot: it can hold a conversation about what to do next, in the context of everything else you know about your situation.
+          </Text>
+          <Text style={{ fontFamily: 'Helvetica', fontSize: 11, color: COLOURS.bodyMuted, lineHeight: 1.6, maxWidth: 400, marginBottom: 32 }}>
+            If you would like to have that conversation, request a session at fab.partners. All conversations confidential. Responses within one business day.
+          </Text>
+          <Text style={{ fontFamily: 'Helvetica', fontSize: 10, color: COLOURS.coral, letterSpacing: 1 }}>
+            fab.partners
+          </Text>
+        </View>
+        <View style={{ borderTop: '0.5px solid rgba(255,255,255,0.15)', padding: '12 48', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={{ fontFamily: 'Helvetica', fontSize: 8, color: COLOURS.dimmed }}>Executive OS — fab.partners</Text>
+          <Text style={{ fontFamily: 'Helvetica', fontSize: 8, color: COLOURS.dimmed }}>Private coaching practice. All conversations confidential.</Text>
+        </View>
+      </Page>
+
     </Document>
   )
 }

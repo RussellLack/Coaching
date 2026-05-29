@@ -1,276 +1,198 @@
 "use client";
 
-import { useState } from "react";
-
-const archetypes = [
-  { id: "exec", label: "Senior Executive", description: "Leading organisations through AI-driven change whilst protecting your own judgement and authority." },
-  { id: "founder", label: "Founder / Operator", description: "Rebuilding your operating model around AI whilst retaining what made the business distinctively yours." },
-  { id: "consultant", label: "Independent Consultant", description: "Repositioning your expertise in a landscape where AI can replicate much of what you previously charged for." },
-  { id: "expert", label: "Deep Domain Expert", description: "Protecting the value of accumulated knowledge when AI systems appear to match your output." },
-];
-
-const questions: Record<string, { q: string; options: string[] }[]> = {
-  exec: [
-    { q: "How confident are you that your judgement calls are genuinely irreplaceable by AI systems?", options: ["Very confident — I make decisions no model could make", "Uncertain — some decisions feel exposed", "Not sure — I haven't thought it through carefully"] },
-    { q: "When your organisation adopts new AI tools, where does your authority tend to come from?", options: ["Experience and context that the tools lack", "Managing the people and politics around the tools", "I'm not sure my current authority is well-grounded"] },
-    { q: "How clearly can you articulate your professional value in a world of capable AI?", options: ["Very clearly — I've thought this through", "I have a general sense but couldn't make it precise", "This is something I actively worry about"] },
-  ],
-  founder: [
-    { q: "How much of your company's current value depends on things AI could replicate within two years?", options: ["Very little — our moat is human and relational", "Some parts are exposed, others are not", "More than I'm comfortable admitting"] },
-    { q: "When you make key decisions, how much do you rely on instinct built up over years?", options: ["Heavily — that instinct is core to what I do", "I balance instinct with data and analysis", "I'm trying to rely on it less as tools improve"] },
-    { q: "How clearly have you mapped which parts of your role should be automated versus protected?", options: ["I have a clear map and act on it", "I've thought about it but haven't been systematic", "This is work I haven't done yet"] },
-  ],
-  consultant: [
-    { q: "How much of what you charge for could a well-prompted AI produce in a fraction of the time?", options: ["Very little — my value is relational and contextual", "Some deliverables are exposed, my judgement is not", "More than I'd like — I'm actively repositioning"] },
-    { q: "When clients engage you, what are they primarily paying for?", options: ["Access to my judgement and accumulated experience", "Quality of output that AI hasn't matched yet", "Accountability, trust and ongoing relationship"] },
-    { q: "How confident are you in the durability of your current positioning over the next three years?", options: ["Confident — I'm already repositioning well", "Moderately confident with some concerns", "This is a significant source of professional anxiety"] },
-  ],
-  expert: [
-    { q: "How much of your expertise is tacit — held in judgement and pattern recognition rather than articulated knowledge?", options: ["Most of it — it can't easily be written down", "A good proportion, alongside formalised knowledge", "Mostly formalised — which makes me feel exposed"] },
-    { q: "When AI systems produce outputs in your domain, how do you experience them?", options: ["Useful tools I can direct and critique confidently", "Occasionally impressive, occasionally wrong in subtle ways", "Threatening to the perception of my value"] },
-    { q: "Have you articulated clearly to others why your expertise remains valuable in an AI-capable environment?", options: ["Yes — I can make this case compellingly", "I've tried but the message hasn't fully landed", "This is something I need to work on"] },
-  ],
+type SiteSettings = {
+  title: string;
+  tagline: string;
+  bookingEmail: string;
+  scanPrice: string;
 };
-
-type SiteSettings = { title: string; tagline: string; bookingEmail: string; scanPrice: string }
-type Hero = { headline: string; subheadline: string; body: string; ctaLabel: string }
-type HumanValue = { title: string; body: string; order: number }
-type Journey = { title: string; description: string; order: number }
+type Hero = { headline: string; subheadline: string; body: string; ctaLabel: string };
+type HumanValue = { title: string; body: string; order: number };
+type Journey = { title: string; description: string; order: number };
 
 interface Props {
-  siteSettings: SiteSettings
-  hero: Hero
-  humanValues: HumanValue[]
-  journeys: Journey[]
+  siteSettings: SiteSettings;
+  hero: Hero;
+  humanValues: HumanValue[];
+  journeys: Journey[];
 }
 
-export default function HomeClient({ siteSettings, hero, humanValues, journeys }: Props) {
-  const [selectedArchetype, setSelectedArchetype] = useState<string | null>(null);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<number[]>([]);
-  const [showResult, setShowResult] = useState(false);
-  const [showPaidPreview, setShowPaidPreview] = useState(false);
+const ASSESSMENTS = [
+  { slug: "coaching-readiness", title: "Coaching Readiness Scan", description: "Are you actually ready for coaching? Thirteen questions, five dimensions. Tells you what kind of support would be genuinely useful — and whether now is the right moment.", minutes: 4 },
+  { slug: "resilience-wheel", title: "Leadership Resilience Wheel", description: "Eight domains, eight sliders. A diagnostic read on where your foundation is solid and where it is thin. Useful before any significant move.", minutes: 8 },
+  { slug: "decision-making-style", title: "Decision-Making Style Diagnostic", description: "How do you decide with AI in the room — and without it? Eight scenarios, a 2x2 result, twelve profiles. Surfaces patterns most senior leaders haven't named.", minutes: 10 },
+  { slug: "cognitive-distortion-spotter", title: "Cognitive Distortion Spotter", description: "Twelve scenarios. Eleven distortion families, including three specific to how people read AI. Identifies the two or three patterns most likely to be shaping your current reads.", minutes: 8 },
+  { slug: "support-matrix", title: "Support Matrix Audit", description: "Who is actually with you? Map the influence and alignment of the people your work depends on. Designed for leaders navigating change that requires others to move.", minutes: 12 },
+  { slug: "success-definition-audit", title: "Success Definition Audit", description: "What did success mean to you five years ago? What does it mean now? What do you want it to mean? Three rounds, five factors. Designed for the moment when the old answer no longer quite fits.", minutes: 10 },
+];
 
-  const handleAnswer = (answerIndex: number) => {
-    const newAnswers = [...answers, answerIndex];
-    setAnswers(newAnswers);
-    const qs = questions[selectedArchetype!];
-    if (currentQuestion + 1 < qs.length) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      setShowResult(true);
-    }
-  };
+const JOURNEYS = [
+  { number: "01", title: "Value Clarity", description: "Where your professional value is defensible and where it is exposed. The first question, for most senior leaders navigating AI." },
+  { number: "02", title: "Authority Navigation", description: "Rebuilding the foundations of authority so they rest on what AI cannot replicate: judgement, trust, professional context." },
+  { number: "03", title: "Identity Transition", description: "The work that becomes necessary when expertise that once felt singular no longer does." },
+  { number: "04", title: "Strategic Repositioning", description: "A professional narrative that holds in conversations with peers, clients and boards — in conditions that are genuinely new." },
+  { number: "05", title: "Operating Model Reset", description: "Redesigning how you work so that AI augments what makes you distinctively useful rather than displacing it." },
+  { number: "06", title: "Sustained Accountability", description: "Ongoing challenge, reflection and professional accountability. For the period after the insight, when the harder work begins." },
+];
 
-  const resetAssessment = () => {
-    setSelectedArchetype(null);
-    setCurrentQuestion(0);
-    setAnswers([]);
-    setShowResult(false);
-    setShowPaidPreview(false);
-  };
+const S = {
+  label: { fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase" as const, color: "rgba(245,240,235,0.4)", marginBottom: "2rem" },
+  sectionWrap: { maxWidth: "860px", margin: "0 auto", padding: "0 2rem" },
+  divider: { width: "2rem", height: "2px", background: "var(--coral)", marginBottom: "1.25rem" },
+  bodyText: { fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "1rem", lineHeight: 1.7, color: "rgba(245,240,235,0.75)" },
+  pillarTitle: { fontFamily: "Helvetica Neue, Arial, sans-serif", fontWeight: 500, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase" as const, color: "var(--cream)", marginBottom: "0.75rem" },
+  ctaPrimary: { display: "inline-block", background: "var(--coral)", color: "white", fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.85rem", letterSpacing: "0.1em", textTransform: "uppercase" as const, padding: "1rem 2rem", textDecoration: "none" },
+  ctaOutline: { display: "inline-block", border: "1px solid var(--coral)", color: "var(--coral)", fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.8rem", letterSpacing: "0.1em", textTransform: "uppercase" as const, padding: "0.65rem 1.5rem", textDecoration: "none" },
+};
 
-  const exposureScore = answers.reduce((acc, a) => acc + a, 0);
-  const maxScore = answers.length * 2;
-  const exposureLevel = exposureScore / maxScore;
-
-  const scanPrice = siteSettings?.scanPrice || "£495";
-  const bookingEmail = siteSettings?.bookingEmail || "hello@fab.partners";
+export default function HomeClient({ siteSettings, hero, humanValues }: Props) {
+  const siteTitle = siteSettings?.title || "Executive OS";
+  const siteTagline = siteSettings?.tagline || "Human Coaching · AI Transition";
   const heroHeadline = hero?.headline || "Your expertise is not in decline. Its context has changed.";
-  const heroBody = hero?.body || "Executive OS is a private coaching practice for senior professionals navigating AI disruption.";
-  const heroCta = hero?.ctaLabel || "Take the Free Snapshot";
+  const heroBody = hero?.body || "Fab Partners offer private coaching for senior professionals navigating AI disruption. Not AI training. Not generic coaching. Precise, confidential work on identity, judgement and professional value.";
+  const bookingEmail = siteSettings?.bookingEmail || "hello@fab.partners";
+
+  const pillars = humanValues?.length > 0 ? humanValues.slice(0, 3) : [
+    { title: "Confidentiality", body: "AI systems log, store and train on what you share. A coaching conversation does not." },
+    { title: "Contextual Judgement", body: "No model understands your specific history, relationships, blind spots and professional context the way a skilled coach can." },
+    { title: "Accountability", body: "Sustained behaviour change requires challenge and accountability from a person you trust — not a tool you can ignore." },
+  ];
 
   return (
     <main style={{ background: "var(--teal)", minHeight: "100vh" }}>
-      {/* Nav */}
+
       <nav style={{ borderBottom: "1px solid rgba(255,255,255,0.08)", padding: "1.25rem 2rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <span style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontWeight: 300, letterSpacing: "0.15em", fontSize: "0.85rem", color: "var(--cream)", textTransform: "uppercase" }}>
-          {siteSettings?.title || "Executive OS"}
+          {siteTitle}
         </span>
+        <a href="/assessments" style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.8rem", color: "rgba(245,240,235,0.6)", textDecoration: "none", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+          Assessments
+        </a>
         <a href="#book" style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.8rem", color: "var(--coral)", textDecoration: "none", letterSpacing: "0.1em", textTransform: "uppercase", border: "1px solid var(--coral)", padding: "0.5rem 1.25rem" }}>
           Book a Call
         </a>
       </nav>
 
-      {/* Hero */}
       <section style={{ maxWidth: "860px", margin: "0 auto", padding: "6rem 2rem 5rem" }}>
         <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--coral)", marginBottom: "1.5rem" }}>
-          {siteSettings?.tagline || "Human Coaching · AI Transition"}
+          {siteTagline}
         </p>
         <h1 style={{ fontSize: "clamp(2.2rem, 5vw, 3.8rem)", fontWeight: 400, lineHeight: 1.15, color: "var(--cream)", marginBottom: "2rem", letterSpacing: "-0.01em" }}>
           {heroHeadline}
         </h1>
-        <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "1.1rem", lineHeight: 1.7, color: "rgba(245,240,235,0.75)", maxWidth: "600px", marginBottom: "2.5rem" }}>
+        <p style={{ ...S.bodyText, fontSize: "1.1rem", maxWidth: "600px", marginBottom: "2.5rem" }}>
           {heroBody}
         </p>
-        <a href="#snapshot" style={{ display: "inline-block", background: "var(--coral)", color: "white", fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.85rem", letterSpacing: "0.1em", textTransform: "uppercase", padding: "1rem 2rem", textDecoration: "none" }}>
-          {heroCta}
-        </a>
+        <a href="/assessments" style={S.ctaPrimary}>Start with a diagnostic</a>
+        <p style={{ marginTop: "1.25rem", fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.85rem", color: "rgba(245,240,235,0.45)" }}>
+          Already know what you need?{" "}
+          <a href="#book" style={{ color: "rgba(245,240,235,0.6)", textDecoration: "underline" }}>Request a strategy session</a>
+        </p>
       </section>
 
-      {/* Human Value */}
       <section style={{ borderTop: "1px solid rgba(255,255,255,0.08)", borderBottom: "1px solid rgba(255,255,255,0.08)", padding: "5rem 2rem" }}>
-        <div style={{ maxWidth: "860px", margin: "0 auto" }}>
-          <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,240,235,0.4)", marginBottom: "3rem" }}>
-            Why Human Coaching
+        <div style={S.sectionWrap}>
+          <p style={S.label}>Why Human Coaching</p>
+          <p style={{ ...S.bodyText, fontSize: "1.05rem", maxWidth: "640px", marginBottom: "3.5rem", color: "rgba(245,240,235,0.65)" }}>
+            AI is useful preparation. It is not a coaching relationship. The distinction is not sentimental — it is structural.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "3rem" }}>
-            {humanValues.map(({ title, body }) => (
+            {pillars.map(({ title, body }) => (
               <div key={title}>
-                <div style={{ width: "2rem", height: "2px", background: "var(--coral)", marginBottom: "1.25rem" }} />
-                <h3 style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.9rem", fontWeight: 500, letterSpacing: "0.05em", color: "var(--cream)", marginBottom: "0.75rem", textTransform: "uppercase" }}>{title}</h3>
-                <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.9rem", lineHeight: 1.7, color: "rgba(245,240,235,0.65)" }}>{body}</p>
+                <div style={S.divider} />
+                <p style={S.pillarTitle}>{title}</p>
+                <p style={S.bodyText}>{body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Snapshot Assessment */}
-      <section id="snapshot" style={{ padding: "5rem 2rem" }}>
-        <div style={{ maxWidth: "700px", margin: "0 auto" }}>
-          <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,240,235,0.4)", marginBottom: "1rem" }}>Free Snapshot</p>
-          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontWeight: 400, color: "var(--cream)", marginBottom: "1rem" }}>Where do you stand?</h2>
-          <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.95rem", lineHeight: 1.7, color: "rgba(245,240,235,0.65)", marginBottom: "3rem" }}>
-            Select the role that best reflects your current professional position. Three questions. A useful starting point.
+      <section id="diagnostics" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)", padding: "5rem 2rem" }}>
+        <div style={S.sectionWrap}>
+          <p style={S.label}>The Diagnostics</p>
+          <h2 style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.6rem)", fontWeight: 400, color: "var(--cream)", lineHeight: 1.2, marginBottom: "1.5rem", letterSpacing: "-0.01em" }}>
+            Six tools. Immediate results. No generic quiz.
+          </h2>
+          <p style={{ ...S.bodyText, maxWidth: "620px", marginBottom: "3.5rem" }}>
+            Each diagnostic takes between four and twelve minutes and produces a specific, written result you can act on. Results are emailed as a PDF. No data is sold. Nothing is shared.
           </p>
-
-          {!selectedArchetype && !showResult && (
-            <div style={{ display: "grid", gap: "1rem" }}>
-              {archetypes.map((a) => (
-                <button key={a.id} onClick={() => setSelectedArchetype(a.id)}
-                  style={{ textAlign: "left", padding: "1.5rem 2rem", border: "1px solid rgba(255,255,255,0.12)", background: "transparent", color: "var(--cream)", cursor: "pointer", transition: "all 0.2s" }}
-                  onMouseOver={(e) => (e.currentTarget.style.borderColor = "var(--coral)")}
-                  onMouseOut={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)")}>
-                  <div style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontWeight: 500, fontSize: "0.95rem", marginBottom: "0.4rem" }}>{a.label}</div>
-                  <div style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.85rem", color: "rgba(245,240,235,0.55)", lineHeight: 1.5 }}>{a.description}</div>
-                </button>
-              ))}
-            </div>
-          )}
-
-          {selectedArchetype && !showResult && (
-            <div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2.5rem" }}>
-                <span style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.8rem", color: "rgba(245,240,235,0.4)" }}>Question {currentQuestion + 1} of {questions[selectedArchetype].length}</span>
-                <div style={{ display: "flex", gap: "0.4rem" }}>
-                  {questions[selectedArchetype].map((_, i) => (
-                    <div key={i} style={{ width: "2rem", height: "2px", background: i <= currentQuestion ? "var(--coral)" : "rgba(255,255,255,0.15)" }} />
-                  ))}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {ASSESSMENTS.map((a, i) => (
+              <a key={a.slug} href={"/assessments/" + a.slug} style={{ display: "block", borderTop: i === 0 ? "1px solid rgba(255,255,255,0.1)" : "none", borderBottom: "1px solid rgba(255,255,255,0.1)", padding: "1.5rem 0", textDecoration: "none", color: "inherit" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.4rem" }}>
+                  <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontWeight: 500, fontSize: "0.9rem", letterSpacing: "0.04em", color: "var(--cream)", margin: 0 }}>{a.title}</p>
+                  <span style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.75rem", color: "rgba(245,240,235,0.3)", flexShrink: 0, marginLeft: "1rem" }}>{a.minutes} min</span>
                 </div>
-              </div>
-              <h3 style={{ fontSize: "1.25rem", fontWeight: 400, lineHeight: 1.5, color: "var(--cream)", marginBottom: "2rem" }}>
-                {questions[selectedArchetype][currentQuestion].q}
-              </h3>
-              <div style={{ display: "grid", gap: "0.75rem" }}>
-                {questions[selectedArchetype][currentQuestion].options.map((opt, i) => (
-                  <button key={i} onClick={() => handleAnswer(i)}
-                    style={{ textAlign: "left", padding: "1.25rem 1.5rem", border: "1px solid rgba(255,255,255,0.12)", background: "transparent", color: "rgba(245,240,235,0.8)", cursor: "pointer", fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.9rem", lineHeight: 1.5, transition: "all 0.2s" }}
-                    onMouseOver={(e) => { e.currentTarget.style.borderColor = "var(--coral)"; e.currentTarget.style.color = "var(--cream)"; }}
-                    onMouseOut={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.color = "rgba(245,240,235,0.8)"; }}>
-                    {opt}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {showResult && !showPaidPreview && (
-            <div>
-              <div style={{ padding: "2.5rem", border: "1px solid rgba(255,255,255,0.12)", marginBottom: "2rem" }}>
-                <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--coral)", marginBottom: "1rem" }}>Your Snapshot</p>
-                {exposureLevel < 0.4 && (<>
-                  <h3 style={{ fontSize: "1.3rem", fontWeight: 400, color: "var(--cream)", marginBottom: "1rem" }}>Your position is largely defensible — for now.</h3>
-                  <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.9rem", lineHeight: 1.7, color: "rgba(245,240,235,0.7)" }}>You appear to have a reasonably clear sense of where your value sits. The risk is complacency: the landscape is shifting faster than most professionals' self-assessments. A Deep Navigation Scan would test the robustness of your current positioning with greater precision.</p>
-                </>)}
-                {exposureLevel >= 0.4 && exposureLevel < 0.75 && (<>
-                  <h3 style={{ fontSize: "1.3rem", fontWeight: 400, color: "var(--cream)", marginBottom: "1rem" }}>You have real clarity in some areas — and real exposure in others.</h3>
-                  <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.9rem", lineHeight: 1.7, color: "rgba(245,240,235,0.7)" }}>This is the most common and the most actionable position. You are not in crisis, but you are not fully secure either. The work is to map the exposure precisely and build a clear narrative. That is exactly what the Deep Navigation Scan is designed to produce.</p>
-                </>)}
-                {exposureLevel >= 0.75 && (<>
-                  <h3 style={{ fontSize: "1.3rem", fontWeight: 400, color: "var(--cream)", marginBottom: "1rem" }}>You are navigating significant uncertainty.</h3>
-                  <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.9rem", lineHeight: 1.7, color: "rgba(245,240,235,0.7)" }}>That is not a failure of intelligence or effort. It reflects the genuine scale of what is changing. The most useful next step is a structured, confidential conversation — not more information, but clearer thinking about what matters most in your specific situation.</p>
-                </>)}
-              </div>
-              <button onClick={() => setShowPaidPreview(true)}
-                style={{ display: "block", width: "100%", padding: "1.25rem", background: "var(--coral)", color: "white", border: "none", fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.85rem", letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", marginBottom: "1rem" }}>
-                See the Deep Navigation Scan
-              </button>
-              <button onClick={resetAssessment}
-                style={{ display: "block", width: "100%", padding: "1rem", background: "transparent", color: "rgba(245,240,235,0.4)", border: "1px solid rgba(255,255,255,0.1)", fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.8rem", cursor: "pointer", letterSpacing: "0.05em" }}>
-                Start again
-              </button>
-            </div>
-          )}
-
-          {showPaidPreview && (
-            <div>
-              <div style={{ border: "1px solid rgba(227,66,52,0.3)", padding: "2.5rem", marginBottom: "2rem" }}>
-                <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--coral)", marginBottom: "1.5rem" }}>
-                  Deep Navigation Scan — {scanPrice}
-                </p>
-                <h3 style={{ fontSize: "1.2rem", fontWeight: 400, color: "var(--cream)", marginBottom: "1.5rem" }}>A precise map of your professional position in the AI transition.</h3>
-                <div style={{ display: "grid", gap: "1rem", marginBottom: "1.5rem" }}>
-                  {["Extended diagnostic across six professional dimensions","AI Navigation Brief: a written summary of your position, exposures and defensible strengths","Sample output from the diagnostic modules","Recommended coaching journey based on your specific profile","Private strategy session with your coach to work through the findings"].map((item) => (
-                    <div key={item} style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
-                      <div style={{ width: "1rem", height: "1px", background: "var(--coral)", marginTop: "0.65rem", flexShrink: 0 }} />
-                      <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.9rem", color: "rgba(245,240,235,0.75)", lineHeight: 1.6, margin: 0 }}>{item}</p>
-                    </div>
-                  ))}
-                </div>
-                <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.8rem", color: "rgba(245,240,235,0.4)", lineHeight: 1.6 }}>The scan prepares the coaching conversation. It does not replace it.</p>
-              </div>
-              <a href="#book" style={{ display: "block", textAlign: "center", padding: "1.25rem", background: "var(--coral)", color: "white", fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.85rem", letterSpacing: "0.1em", textTransform: "uppercase", textDecoration: "none", marginBottom: "0.75rem" }}>
-                Book a Private Strategy Session
+                <p style={{ ...S.bodyText, fontSize: "0.9rem", margin: 0 }}>{a.description}</p>
               </a>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Coaching Journeys */}
-      <section style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "5rem 2rem" }}>
-        <div style={{ maxWidth: "860px", margin: "0 auto" }}>
-          <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,240,235,0.4)", marginBottom: "1rem" }}>Coaching Journeys</p>
-          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontWeight: 400, color: "var(--cream)", marginBottom: "1rem" }}>From insight to sustained change.</h2>
-          <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.95rem", color: "rgba(245,240,235,0.6)", marginBottom: "3rem", maxWidth: "500px", lineHeight: 1.7 }}>
-            The Deep Navigation Scan identifies which journey is most relevant to you. Each is a distinct coaching engagement, not a course.
-          </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
-            {journeys.map((j, i) => (
-              <div key={j.title} style={{ padding: "2rem", border: "1px solid rgba(255,255,255,0.08)" }}>
-                <div style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.75rem", color: "rgba(245,240,235,0.25)", marginBottom: "1rem" }}>0{i + 1}</div>
-                <h3 style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.95rem", fontWeight: 500, color: "var(--cream)", marginBottom: "0.75rem" }}>{j.title}</h3>
-                <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.85rem", lineHeight: 1.65, color: "rgba(245,240,235,0.55)" }}>{j.description}</p>
-              </div>
             ))}
+          </div>
+          <div style={{ marginTop: "2.5rem" }}>
+            <p style={{ ...S.bodyText, fontSize: "0.9rem", marginBottom: "1rem" }}>Not sure where to start?</p>
+            <a href="/assessments" style={S.ctaOutline}>Find your situation</a>
           </div>
         </div>
       </section>
 
-      {/* Booking */}
-      <section id="book" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "5rem 2rem" }}>
-        <div style={{ maxWidth: "600px", margin: "0 auto", textAlign: "center" }}>
-          <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,240,235,0.4)", marginBottom: "1.5rem" }}>Begin Here</p>
-          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontWeight: 400, color: "var(--cream)", marginBottom: "1.25rem" }}>A private strategy session.</h2>
-          <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.95rem", lineHeight: 1.7, color: "rgba(245,240,235,0.65)", marginBottom: "2.5rem" }}>
-            Forty-five minutes. Confidential. No obligation. An honest conversation about where you are and whether this work is right for you.
+      <section style={{ borderBottom: "1px solid rgba(255,255,255,0.08)", padding: "5rem 2rem", background: "rgba(255,255,255,0.02)" }}>
+        <div style={S.sectionWrap}>
+          <p style={S.label}>What You Get</p>
+          <h2 style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.6rem)", fontWeight: 400, color: "var(--cream)", lineHeight: 1.2, marginBottom: "1.5rem", letterSpacing: "-0.01em" }}>
+            A result that is specific to you. Not a category. Not a score.
+          </h2>
+          <p style={{ ...S.bodyText, maxWidth: "620px", marginBottom: "1.5rem" }}>
+            Each diagnostic produces a written interpretation of your answers, a visualisation of your pattern, and a PDF document you can keep. The result tells you something you can act on — not just where you sit on a scale.
           </p>
-          <a href={`mailto:${bookingEmail}?subject=Executive OS — Strategy Session Request`}
-            style={{ display: "inline-block", background: "var(--coral)", color: "white", fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.85rem", letterSpacing: "0.1em", textTransform: "uppercase", padding: "1.1rem 2.5rem", textDecoration: "none", marginBottom: "1rem" }}>
-            Request a Strategy Session
-          </a>
-          <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.8rem", color: "rgba(245,240,235,0.3)", marginTop: "1rem" }}>Responses within one business day.</p>
+          <p style={{ ...S.bodyText, maxWidth: "620px" }}>
+            You do not need to share your email to see your result on screen. The PDF is sent to an address you choose, when you choose.
+          </p>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "2.5rem 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-        <span style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.8rem", color: "rgba(245,240,235,0.25)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-          {siteSettings?.title || "Executive OS"}
-        </span>
-        <span style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.75rem", color: "rgba(245,240,235,0.2)" }}>Private coaching practice. All conversations confidential.</span>
+      <section style={{ borderBottom: "1px solid rgba(255,255,255,0.08)", padding: "5rem 2rem" }}>
+        <div style={S.sectionWrap}>
+          <p style={S.label}>From Diagnosis to Coaching</p>
+          <h2 style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.6rem)", fontWeight: 400, color: "var(--cream)", lineHeight: 1.2, marginBottom: "1.5rem", letterSpacing: "-0.01em" }}>
+            The diagnostic work creates the conditions for the coaching to work.
+          </h2>
+          <p style={{ ...S.bodyText, maxWidth: "620px", marginBottom: "1.25rem" }}>
+            Most coaching starts with a blank sheet. A first session spent finding the question. A few sessions establishing trust before anything useful is said.
+          </p>
+          <p style={{ ...S.bodyText, maxWidth: "620px", marginBottom: "3.5rem" }}>
+            When you arrive at a strategy session having completed one or more assessments, there is already a shared vocabulary. A specific pattern named. Something to work from rather than towards.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "2.5rem", marginBottom: "2.5rem" }}>
+            {JOURNEYS.map((j) => (
+              <div key={j.number}>
+                <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.75rem", color: "var(--coral)", letterSpacing: "0.1em", marginBottom: "0.5rem" }}>{j.number}</p>
+                <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontWeight: 500, fontSize: "0.9rem", letterSpacing: "0.04em", color: "var(--cream)", marginBottom: "0.5rem" }}>{j.title}</p>
+                <p style={{ ...S.bodyText, fontSize: "0.875rem" }}>{j.description}</p>
+              </div>
+            ))}
+          </div>
+          <p style={{ ...S.bodyText, fontSize: "0.875rem", fontStyle: "italic" }}>
+            The Deep Navigation Scan identifies which journey is most relevant for you.
+          </p>
+        </div>
+      </section>
+
+      <section id="book" style={{ padding: "6rem 2rem", textAlign: "center" }}>
+        <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,240,235,0.4)", marginBottom: "1.5rem" }}>Begin Here</p>
+        <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)", fontWeight: 400, color: "var(--cream)", lineHeight: 1.2, marginBottom: "1.5rem", letterSpacing: "-0.01em" }}>A private strategy session.</h2>
+        <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "1rem", lineHeight: 1.7, color: "rgba(245,240,235,0.65)", maxWidth: "520px", margin: "0 auto 0.75rem" }}>Forty-five minutes. Confidential. No obligation.</p>
+        <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "1rem", lineHeight: 1.7, color: "rgba(245,240,235,0.65)", maxWidth: "520px", margin: "0 auto 2.5rem" }}>
+          An honest conversation about where you are, what the diagnostic work has surfaced, and whether this engagement is right for you. If you have not taken a diagnostic yet, we can start there. If you have, bring the result.
+        </p>
+        <a href={"mailto:" + bookingEmail + "?subject=Strategy session request"} style={S.ctaPrimary}>Request a Strategy Session</a>
+        <p style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.85rem", color: "rgba(245,240,235,0.35)", marginTop: "1.5rem" }}>Responses within one business day.</p>
+      </section>
+
+      <footer style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
+        <span style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontWeight: 300, letterSpacing: "0.15em", fontSize: "0.8rem", color: "rgba(245,240,235,0.3)", textTransform: "uppercase" }}>{siteTitle}</span>
+        <span style={{ fontFamily: "Helvetica Neue, Arial, sans-serif", fontSize: "0.8rem", color: "rgba(245,240,235,0.3)" }}>Private coaching practice. All conversations confidential.</span>
       </footer>
+
     </main>
   );
 }

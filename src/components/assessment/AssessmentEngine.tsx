@@ -25,6 +25,7 @@ import { AssessmentVisualisation } from './visualisations'
 export interface AssessmentEngineProps {
   assessment: Assessment
   defaultWebformEndpoint?: string
+  bookingUrl?: string
 }
 
 type Stage = 'intro' | 'questions' | 'results' | 'thanks'
@@ -32,6 +33,7 @@ type Stage = 'intro' | 'questions' | 'results' | 'thanks'
 export function AssessmentEngine({
   assessment,
   defaultWebformEndpoint,
+  bookingUrl = 'mailto:hello@fab.partners?subject=Strategy session request',
 }: AssessmentEngineProps) {
   const [stage, setStage] = useState<Stage>('intro')
   const [answers, setAnswers] = useState<Answers>({})
@@ -687,3 +689,47 @@ function extractPrimaryFinding(
   }
   return parts.join(' — ')
 }
+
+
+// PostResultCTA — contextual coaching CTA below the result
+const READY_TIERS = ['ready', 'ready-with-gap'];
+const ALMOST_TIERS = ['almost-ready'];
+
+function PostResultCTA({ tierId, bookingUrl }: { tierId: string; bookingUrl: string }) {
+  const isReady = READY_TIERS.includes(tierId);
+  const isAlmost = ALMOST_TIERS.includes(tierId);
+  const isNotYet = !isReady && !isAlmost;
+
+  const wrap: React.CSSProperties = { marginTop: '3rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2.5rem' };
+  const heading: React.CSSProperties = { fontFamily: 'Helvetica Neue, Arial, sans-serif', fontWeight: 500, fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--cream)', marginBottom: '0.75rem' };
+  const body: React.CSSProperties = { fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.95rem', lineHeight: 1.7, color: 'rgba(245,240,235,0.7)', maxWidth: '480px', marginBottom: '1.5rem' };
+  const btnP: React.CSSProperties = { display: 'inline-block', background: 'var(--coral)', color: 'white', fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.8rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '0.85rem 1.75rem', textDecoration: 'none' };
+  const btnO: React.CSSProperties = { display: 'inline-block', border: '1px solid var(--coral)', color: 'var(--coral)', fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.8rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '0.85rem 1.75rem', textDecoration: 'none' };
+
+  return (
+    <div style={wrap}>
+      {isReady && (
+        <>
+          <p style={heading}>Take this further.</p>
+          <p style={body}>Your result suggests you are in a good position to get real value from a focused conversation. A 45-minute strategy session — private, no obligation — is the natural next step. Bring the PDF.</p>
+          <a href={bookingUrl} style={btnP}>Book a Strategy Session</a>
+        </>
+      )}
+      {isAlmost && (
+        <>
+          <p style={heading}>Worth a conversation.</p>
+          <p style={body}>Your result identifies something specific. A strategy session is not about selling you a coaching programme — it is an honest conversation about whether there is work here worth doing, and what kind. Forty-five minutes. Confidential. No obligation.</p>
+          <a href={bookingUrl} style={btnP}>Request a Strategy Session</a>
+        </>
+      )}
+      {isNotYet && (
+        <>
+          <p style={heading}>Not the right moment — but worth staying in touch.</p>
+          <p style={body}>Your result is honest about timing. If you would like a brief, informal conversation to think through what would actually help you right now, that is also on offer. No agenda.</p>
+          <a href="mailto:hello@fab.partners?subject=Brief conversation request" style={btnO}>Get in touch</a>
+        </>
+      )}
+    </div>
+  );
+}
+

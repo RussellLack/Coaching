@@ -281,7 +281,17 @@ function buildCombinationEmailText(combo: CrossCombination): string {
     combo.ctaLabel && combo.ctaHref
       ? `\n\n${combo.ctaLabel}: ${combo.ctaHref}`
       : ''
-  return paragraphs.join('\n\n') + cta + '\n\n— Russell, fab.partners'
+  const bookingLine =
+    combo.ctaLabel && combo.ctaHref
+      ? `\n\n${combo.ctaLabel}: ${combo.ctaHref}`
+      : '\n\nIf you would like a 45-minute strategy session to talk this through, request one here: https://fab.partners/#book';
+
+  return (
+    paragraphs.join('\n\n') +
+    bookingLine +
+    '\n\nForty-five minutes. Confidential. No obligation.' +
+    '\n\n— Russell, fab.partners'
+  )
 }
 
 interface PortableBlock {
