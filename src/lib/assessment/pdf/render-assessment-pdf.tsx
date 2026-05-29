@@ -336,7 +336,7 @@ function AssessmentPdf({ assessment, payload }: AssessmentPdfProps) {
       {/* Next Steps page */}
       <Page size="A4" style={styles.page}>
         <View style={{ flex: 1, justifyContent: 'center', padding: 48 }}>
-          <Text style={{ fontFamily: 'Helvetica', fontSize: 8, letterSpacing: 2, color: COLOURS.coral, marginBottom: 20 }}>
+          <Text style={{ fontFamily: 'Helvetica', fontSize: 8, letterSpacing: 2, color: COLOURS.highlight, marginBottom: 20 }}>
             Your result is a starting point.
           </Text>
           <Text style={{ fontFamily: 'Helvetica', fontSize: 14, color: COLOURS.cream, lineHeight: 1.4, marginBottom: 20, maxWidth: 400 }}>
@@ -348,7 +348,7 @@ function AssessmentPdf({ assessment, payload }: AssessmentPdfProps) {
           <Text style={{ fontFamily: 'Helvetica', fontSize: 11, color: COLOURS.bodyMuted, lineHeight: 1.6, maxWidth: 400, marginBottom: 32 }}>
             If you would like to have that conversation, request a session at fab.partners. All conversations confidential. Responses within one business day.
           </Text>
-          <Text style={{ fontFamily: 'Helvetica', fontSize: 10, color: COLOURS.coral, letterSpacing: 1 }}>
+          <Text style={{ fontFamily: 'Helvetica', fontSize: 10, color: COLOURS.highlight, letterSpacing: 1 }}>
             fab.partners
           </Text>
         </View>
