@@ -1,18 +1,17 @@
 export const dynamic = 'force-dynamic'
 
-import { NextRequest, NextResponse } from 'next/server';
-import * as postmark from 'postmark';
+import { NextRequest, NextResponse } from 'next/server'
 
-const client = new postmark.ServerClient(process.env.POSTMARK_SERVER_TOKEN ?? '');
-const TO = process.env.CONTACT_EMAIL ?? 'russell@fab.partners';
-const FROM = process.env.POSTMARK_FROM ?? 'noreply@fab.partners';
+const TO = process.env.CONTACT_EMAIL ?? 'russell@fab.partners'
+const FROM = process.env.POSTMARK_FROM ?? 'noreply@fab.partners'
+const TOKEN = process.env.POSTMARK_SERVER_TOKEN ?? ''
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, message, context } = await req.json();
+    const { name, message, context } = await req.json()
 
     if (!name || !message) {
-      return NextResponse.json({ error: 'Name and message are required.' }, { status: 400 });
+      return NextResponse.json({ error: 'Name and message are required.' }, { status: 400 })
     }
 
     const lines = [
@@ -23,18 +22,32 @@ export async function POST(req: NextRequest) {
       message,
       '',
       '— sent via fab.partners',
-    ].filter((l): l is string => l !== undefined);
+    ].filter(Boolean)
 
-    await client.sendEmail({
-      From: FROM,
-      To: TO,
-      Subject: `Strategy session enquiry — ${name}`,
-      TextBody: lines.join('\n'),
-    });
+    const res = await fetch('https://api.postmarkapp.com/email', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-Postmark-Server-Token': TOKEN,
+      },
+      body: JSON.stringify({
+        From: FROM,
+        To: TO,
+        Subject: `Strategy session enquiry — ${name}`,
+        TextBody: lines.join('\n'),
+      }),
+    })
 
-    return NextResponse.json({ ok: true });
+    if (!res.ok) {
+      const err = await res.text()
+      console.error('Postmark error:', err)
+      return NextResponse.json({ error: 'Failed to send.' }, { status: 500 })
+    }
+
+    return NextResponse.json({ ok: true })
   } catch (err) {
-    console.error('contact route error', err);
-    return NextResponse.json({ error: 'Failed to send.' }, { status: 500 });
+    console.error('contact route error', err)
+    return NextResponse.json({ error: 'Failed to send.' }, { status: 500 })
   }
 }
