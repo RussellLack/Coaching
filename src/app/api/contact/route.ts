@@ -2,8 +2,8 @@ export const dynamic = 'force-dynamic'
 
 import { NextRequest, NextResponse } from 'next/server'
 
-const TO = process.env.CONTACT_EMAIL ?? 'russell@fab.partners'
-const FROM = process.env.POSTMARK_FROM ?? 'noreply@fab.partners'
+const TO = process.env.CONTACT_EMAIL ?? ''
+const FROM = process.env.POSTMARK_FROM ?? ''
 const TOKEN = process.env.POSTMARK_SERVER_TOKEN ?? ''
 
 export async function POST(req: NextRequest) {
