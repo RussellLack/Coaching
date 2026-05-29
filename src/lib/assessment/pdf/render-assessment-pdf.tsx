@@ -339,7 +339,7 @@ function AssessmentPdf({ assessment, payload }: AssessmentPdfProps) {
           <Text style={{ fontFamily: 'Helvetica', fontSize: 8, letterSpacing: 2, color: COLOURS.highlight, marginBottom: 20 }}>
             Your result is a starting point.
           </Text>
-          <Text style={{ fontFamily: 'Helvetica', fontSize: 14, color: COLOURS.cream, lineHeight: 1.4, marginBottom: 20, maxWidth: 400 }}>
+          <Text style={{ fontFamily: 'Helvetica', fontSize: 14, color: COLOURS.surface, lineHeight: 1.4, marginBottom: 20, maxWidth: 400 }}>
             This document reflects where you are now, on the specific questions this diagnostic asks. It is not a complete picture.
           </Text>
           <Text style={{ fontFamily: 'Helvetica', fontSize: 11, color: COLOURS.bodyMuted, lineHeight: 1.6, maxWidth: 400, marginBottom: 32 }}>
