@@ -251,6 +251,7 @@ export function AssessmentEngine({
           onSubmit={handleEmailSubmit}
           isSubmitting={isSubmitting}
           submissionError={submissionError}
+          bookingUrl={bookingUrl}
         />
       )}
 
@@ -290,7 +291,8 @@ interface ResultScreenProps {
   result: {
     scoring: ReturnType<typeof score>
     matched: NonNullable<ReturnType<typeof matchTier>>
-  }
+    bookingUrl: string
+}
   email: string
   onEmailChange: (v: string) => void
   onSubmit: (e: React.FormEvent) => void
@@ -306,6 +308,7 @@ function ResultScreen({
   onSubmit,
   isSubmitting,
   submissionError,
+  bookingUrl,
 }: ResultScreenProps) {
   const { tier, interpretations, scoring } = result.matched
   return (
@@ -391,7 +394,7 @@ function ResultScreen({
       )}
     
         <PostResultCTA
-          tierId={result?.matched?.tier?.id ?? 'not-yet'}
+          tierId={tier?.id ?? 'not-yet'}
           bookingUrl={bookingUrl}
         />
 </section>
