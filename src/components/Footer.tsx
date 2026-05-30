@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const ASSESSMENTS = [
-  { title: "Are You Actually Ready for Coaching?", slug: "coaching-readiness-scan" },
+  { title: "Are You Actually Ready for Coaching?", slug: "coaching-readiness" },
   { title: "The Resilience Wheel", slug: "resilience-wheel" },
   { title: "Map Your Real Support Network", slug: "stakeholder-support-matrix" },
   { title: "Eleven Thinking Traps", slug: "cognitive-distortion-spotter" },
