@@ -24,15 +24,15 @@ export default function HomeClient({ siteSettings, hero, humanValues, journeys }
 
       {/* Nav */}
       <nav style={{ borderBottom: '1px solid rgba(255,255,255,0.08)', padding: '1.25rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontWeight: 300, letterSpacing: '0.15em', fontSize: '0.85rem', color: 'var(--cream)', textTransform: 'uppercase' }}>
+        <Link href='/' style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontWeight: 300, letterSpacing: '0.15em', fontSize: '0.85rem', color: 'var(--cream)', textDecoration: 'none', textTransform: 'uppercase' }}>
           {siteSettings?.title || 'Executive OS'}
-        </span>
-        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-          <Link href='/assessments' style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.8rem', color: 'rgba(245,240,235,0.6)', textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+        </Link>
+        <div style={{ display: 'flex', gap: '1.75rem', alignItems: 'center' }}>
+          <Link href='/assessments' style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.8rem', color: 'rgba(245,240,235,0.65)', textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
             Assessments
           </Link>
           <a href='#book' style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.8rem', color: 'var(--coral)', textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase', border: '1px solid var(--coral)', padding: '0.5rem 1.25rem' }}>
-            Book a Call
+            Strategy Session
           </a>
         </div>
       </nav>

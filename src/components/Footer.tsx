@@ -1,3 +1,35 @@
+import Link from "next/link";
+
+const ASSESSMENTS = [
+  { title: "Are You Actually Ready for Coaching?", slug: "coaching-readiness-scan" },
+  { title: "The Resilience Wheel", slug: "resilience-wheel" },
+  { title: "Map Your Real Support Network", slug: "stakeholder-support-matrix" },
+  { title: "Eleven Thinking Traps", slug: "cognitive-distortion-spotter" },
+  { title: "The Shape of Your Success", slug: "success-definition-audit" },
+  { title: "Decide Well Under Pressure", slug: "decision-making-style" },
+];
+
+const linkStyle: React.CSSProperties = {
+  fontFamily: "Helvetica Neue, Arial, sans-serif",
+  fontSize: "0.8rem",
+  letterSpacing: "0.05em",
+  color: "rgba(245,240,235,0.6)",
+  textDecoration: "none",
+  display: "block",
+  marginBottom: "0.6rem",
+  lineHeight: 1.4,
+};
+
+const labelStyle: React.CSSProperties = {
+  fontFamily: "Helvetica Neue, Arial, sans-serif",
+  fontSize: "0.7rem",
+  letterSpacing: "0.18em",
+  textTransform: "uppercase",
+  color: "rgba(245,240,235,0.35)",
+  marginBottom: "1rem",
+  display: "block",
+};
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -6,25 +38,20 @@ export default function Footer() {
       style={{
         borderTop: "1px solid rgba(255,255,255,0.08)",
         background: "var(--teal)",
-        padding: "3rem 2rem 2rem",
+        padding: "3.5rem 2rem 2rem",
         marginTop: "auto",
       }}
     >
-      <div
-        style={{
-          maxWidth: "860px",
-          margin: "0 auto",
-        }}
-      >
+      <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+
         {/* Top row */}
         <div
           style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
+            display: "grid",
+            gridTemplateColumns: "1fr 2fr 1fr",
+            gap: "3rem",
+            marginBottom: "3rem",
             alignItems: "flex-start",
-            gap: "2rem",
-            marginBottom: "2.5rem",
           }}
         >
           {/* Brand */}
@@ -40,7 +67,7 @@ export default function Footer() {
                 margin: "0 0 0.5rem",
               }}
             >
-              Fab Partners
+              Executive OS
             </p>
             <p
               style={{
@@ -48,7 +75,7 @@ export default function Footer() {
                 fontSize: "0.85rem",
                 color: "rgba(245,240,235,0.5)",
                 margin: 0,
-                maxWidth: "240px",
+                maxWidth: "200px",
                 lineHeight: 1.6,
               }}
             >
@@ -56,54 +83,24 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Nav links */}
-          <nav
-            style={{
-              display: "flex",
-              gap: "2rem",
-              alignItems: "center",
-            }}
-          >
-            <a
-              href="/"
-              style={{
-                fontFamily: "Helvetica Neue, Arial, sans-serif",
-                fontSize: "0.8rem",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "rgba(245,240,235,0.6)",
-                textDecoration: "none",
-              }}
-            >
-              Home
-            </a>
-            <a
-              href="/privacy"
-              style={{
-                fontFamily: "Helvetica Neue, Arial, sans-serif",
-                fontSize: "0.8rem",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "rgba(245,240,235,0.6)",
-                textDecoration: "none",
-              }}
-            >
-              Privacy
-            </a>
-            <a
-              href="mailto:hello@fab.partners"
-              style={{
-                fontFamily: "Helvetica Neue, Arial, sans-serif",
-                fontSize: "0.8rem",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "var(--coral)",
-                textDecoration: "none",
-              }}
-            >
-              hello@fab.partners
-            </a>
-          </nav>
+          {/* Assessments */}
+          <div>
+            <span style={labelStyle}>Assessments</span>
+            {ASSESSMENTS.map(({ title, slug }) => (
+              <Link key={slug} href={`/assessments/${slug}`} style={linkStyle}>
+                {title}
+              </Link>
+            ))}
+          </div>
+
+          {/* Site links */}
+          <div>
+            <span style={labelStyle}>Site</span>
+            <Link href="/" style={linkStyle}>Home</Link>
+            <Link href="/assessments" style={linkStyle}>All Assessments</Link>
+            <a href="/#book" style={linkStyle}>Strategy Session</a>
+            <Link href="/privacy" style={linkStyle}>Privacy</Link>
+          </div>
         </div>
 
         {/* Divider */}
@@ -166,6 +163,7 @@ export default function Footer() {
             </a>
           </p>
         </div>
+
       </div>
     </footer>
   );
