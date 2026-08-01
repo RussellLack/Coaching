@@ -22,7 +22,7 @@ interface PageProps {
  */
 export async function generateStaticParams() {
   const slugs = await client
-    .withConfig({ useCdn: false })
+    .withConfig({ useCdn: true })
     .fetch(ASSESSMENT_SLUGS_QUERY)
   return slugs.map((s: { slug: string | null }) => ({ slug: s.slug! }))
 }

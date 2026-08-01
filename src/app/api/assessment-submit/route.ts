@@ -61,7 +61,7 @@ export async function POST(request: Request) {
   let assessment: Assessment | null = null
   try {
     assessment = await client
-      .withConfig({ useCdn: false })
+      .withConfig({ useCdn: false }) // sanity-economy: allow-no-cdn intentional fresh read for validation, not a write
       .fetch<Assessment | null>(ASSESSMENT_BY_SLUG_QUERY, {
         slug: payload.assessment.slug,
       })
@@ -133,7 +133,7 @@ export async function POST(request: Request) {
   let combinationMatched: string | null = null
   try {
     const writeClient = client.withConfig({
-      useCdn: false,
+      useCdn: false, // sanity-economy: allow-no-cdn write client
       // The Sanity client picks up the token from this option or the
       // SANITY_WRITE_TOKEN env var. If neither is set, writes fail
       // gracefully and the nudge logic just doesn't fire.
