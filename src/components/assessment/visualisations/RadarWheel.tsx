@@ -76,8 +76,6 @@ export function RadarWheel({
 
   return (
     <svg
-      return (
-    <svg
       viewBox={`0 0 ${size} ${size}`}
       className="mx-auto block w-full max-w-[420px]"
       overflow="visible"        // ← add this line
