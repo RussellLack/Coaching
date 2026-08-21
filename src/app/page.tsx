@@ -1,17 +1,21 @@
-import { client } from '@/lib/sanity'
 import HomeClient from './HomeClient'
+import { getHomeData } from './home-data'
+import { DEFAULT_LOCALE } from '@/i18n/config'
+import { getDictionary } from '@/i18n/dictionaries'
+import { buildAlternates } from '@/i18n/metadata'
+import type { Metadata } from 'next'
 
-async function getData() {
-  const [siteSettings, hero, humanValues, journeys] = await Promise.all([
-    client.fetch(`*[_type == "siteSettings"][0]`),
-    client.fetch(`*[_type == "hero"][0]`),
-    client.fetch(`*[_type == "humanValue"] | order(order asc)`),
-    client.fetch(`*[_type == "journey"] | order(order asc)`),
-  ])
-  return { siteSettings, hero, humanValues, journeys }
+export const metadata: Metadata = {
+  alternates: buildAlternates(DEFAULT_LOCALE, '/'),
 }
 
 export default async function Home() {
-  const data = await getData()
-  return <HomeClient {...data} />
+  const data = await getHomeData(DEFAULT_LOCALE)
+  return (
+    <HomeClient
+      {...data}
+      lang={DEFAULT_LOCALE}
+      dict={getDictionary(DEFAULT_LOCALE)}
+    />
+  )
 }
