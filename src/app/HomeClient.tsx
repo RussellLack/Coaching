@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import StrategyCallForm from "@/components/StrategyCallForm";
 
 type SiteSettings = { title: string; tagline: string; bookingEmail: string; defaultCalendarUrl?: string }
 type Hero = { headline: string; subheadline: string; body: string; ctaLabel: string }
@@ -161,9 +162,13 @@ export default function HomeClient({ siteSettings, hero, humanValues, journeys }
           <p style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '1rem', lineHeight: 1.7, color: 'rgba(245,240,235,0.7)', marginBottom: '2.5rem' }}>
             Book a private strategy session to discuss your assessment results or your situation directly. This is not a sales call.
           </p>
-          <a href={bookingUrl} style={{ display: 'inline-block', background: 'var(--coral)', color: 'white', fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '1.1rem 2.5rem', textDecoration: 'none' }}>
-            Book a Strategy Session
-          </a>
+          {siteSettings?.defaultCalendarUrl ? (
+            <a href={bookingUrl} style={{ display: 'inline-block', background: 'var(--coral)', color: 'white', fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '1.1rem 2.5rem', textDecoration: 'none' }}>
+              Book a Strategy Session
+            </a>
+          ) : (
+            <StrategyCallForm bookingEmail={siteSettings?.bookingEmail || 'hello@fab.partners'} />
+          )}
         </div>
       </section>
 
