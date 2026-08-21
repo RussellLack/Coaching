@@ -40,3 +40,12 @@
 
 [build.environment]
   SECRETS_SCAN_OMIT_PATHS = "CHANGES.md,src/app/api/assessment-submit/route.ts"
+  # CONTACT_EMAIL, POSTMARK_FROM and RESEND_FROM_EMAIL all hold the
+  # practice's public contact address. It appears in the built HTML by
+  # design — mailto links and the privacy notice — which the secrets
+  # scanner otherwise reports as an env var value leaking into the
+  # output, failing the build. These are addresses, not credentials.
+  # The real secrets (POSTMARK_SERVER_TOKEN, RESEND_API_KEY,
+  # SANITY_WRITE_TOKEN) are deliberately NOT listed here and stay
+  # scanned.
+  SECRETS_SCAN_OMIT_KEYS = "CONTACT_EMAIL,POSTMARK_FROM,RESEND_FROM_EMAIL"
