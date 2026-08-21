@@ -33,7 +33,7 @@ type Stage = 'intro' | 'questions' | 'results' | 'thanks'
 export function AssessmentEngine({
   assessment,
   defaultWebformEndpoint,
-  bookingUrl = 'mailto:hello@fab.partners?subject=Strategy session request',
+  bookingUrl = 'mailto:russell@fab.partners?subject=Strategy session request',
 }: AssessmentEngineProps) {
   const [stage, setStage] = useState<Stage>('intro')
   const [answers, setAnswers] = useState<Answers>({})
@@ -308,7 +308,7 @@ function ResultScreen({
   onSubmit,
   isSubmitting,
   submissionError,
-  bookingUrl = 'mailto:hello@fab.partners?subject=Strategy session request',
+  bookingUrl = 'mailto:russell@fab.partners?subject=Strategy session request',
 }: ResultScreenProps) {
   const { tier, interpretations, scoring } = result.matched
   return (
@@ -734,7 +734,7 @@ function PostResultCTA({ tierId, bookingUrl }: { tierId: string; bookingUrl: str
         <>
           <p style={heading}>Not the right moment — but worth staying in touch.</p>
           <p style={body}>Your result is honest about timing. If you would like a brief, informal conversation to think through what would actually help you right now, that is also on offer. No agenda.</p>
-          <a href="mailto:hello@fab.partners?subject=Brief conversation request" style={btnO}>Get in touch</a>
+          <a href="mailto:russell@fab.partners?subject=Brief conversation request" style={btnO}>Get in touch</a>
         </>
       )}
     </div>
