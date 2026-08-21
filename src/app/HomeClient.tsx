@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 type SiteSettings = { title: string; tagline: string; bookingEmail: string; defaultCalendarUrl?: string }
 type Hero = { headline: string; subheadline: string; body: string; ctaLabel: string }
@@ -24,8 +25,15 @@ export default function HomeClient({ siteSettings, hero, humanValues, journeys }
 
       {/* Nav */}
       <nav style={{ borderBottom: '1px solid rgba(255,255,255,0.08)', padding: '1.25rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Link href='/' style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontWeight: 300, letterSpacing: '0.15em', fontSize: '0.85rem', color: 'var(--cream)', textDecoration: 'none', textTransform: 'uppercase' }}>
-          {siteSettings?.title || 'Executive OS'}
+        <Link href='/' style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
+          <Image
+            src='/fab-partners-logo-cream.png'
+            alt='Fab Partners'
+            width={1008}
+            height={944}
+            priority
+            style={{ height: 'clamp(40px, 5.5vw, 54px)', width: 'auto' }}
+          />
         </Link>
         <div style={{ display: 'flex', gap: '1.75rem', alignItems: 'center' }}>
           <Link href='/assessments' style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.8rem', color: 'rgba(245,240,235,0.65)', textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
