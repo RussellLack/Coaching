@@ -3,6 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import StrategyCallForm from "@/components/StrategyCallForm";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { localePath, type Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/dictionaries";
 
 type SiteSettings = { title: string; tagline: string; bookingEmail: string; defaultCalendarUrl?: string }
 type Hero = { headline: string; subheadline: string; body: string; ctaLabel: string }
@@ -14,19 +17,24 @@ interface Props {
   hero: Hero
   humanValues: HumanValue[]
   journeys: Journey[]
+  lang: Locale
+  dict: Dictionary
 }
 
-export default function HomeClient({ siteSettings, hero, humanValues, journeys }: Props) {
+export default function HomeClient({ siteSettings, hero, humanValues, journeys, lang, dict }: Props) {
   const bookingUrl = siteSettings?.defaultCalendarUrl || `mailto:${siteSettings?.bookingEmail || 'russell@fab.partners'}`;
-  const heroHeadline = hero?.headline || 'Your expertise is not in decline. Its context has changed.';
-  const heroBody = hero?.body || 'Executive OS is a private coaching practice for senior professionals navigating AI disruption.';
+  const heroHeadline = hero?.headline || dict.hero.headline;
+  const heroBody = hero?.body || dict.hero.body;
+  const home = localePath(lang, '/');
+  const assessments = localePath(lang, '/assessments');
+  const privacy = localePath(lang, '/privacy');
 
   return (
     <main style={{ background: 'var(--teal)', minHeight: '100vh' }}>
 
       {/* Nav */}
       <nav style={{ borderBottom: '1px solid rgba(255,255,255,0.08)', padding: '1.25rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Link href='/' style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
+        <Link href={home} style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
           <Image
             src='/fab-partners-logo-cream.png'
             alt='Fab Partners'
@@ -37,11 +45,12 @@ export default function HomeClient({ siteSettings, hero, humanValues, journeys }
           />
         </Link>
         <div style={{ display: 'flex', gap: '1.75rem', alignItems: 'center' }}>
-          <Link href='/assessments' style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.8rem', color: 'rgba(245,240,235,0.65)', textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-            Assessments
+          <LanguageSwitcher current={lang} />
+          <Link href={assessments} style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.8rem', color: 'rgba(245,240,235,0.65)', textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+            {dict.nav.assessments}
           </Link>
           <a href='#book' style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.8rem', color: 'var(--coral)', textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase', border: '1px solid var(--coral)', padding: '0.5rem 1.25rem' }}>
-            Strategy Session
+            {dict.nav.strategySession}
           </a>
         </div>
       </nav>
@@ -49,7 +58,7 @@ export default function HomeClient({ siteSettings, hero, humanValues, journeys }
       {/* Hero */}
       <section style={{ maxWidth: '860px', margin: '0 auto', padding: '6rem 2rem 5rem' }}>
         <p style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--coral)', marginBottom: '1.5rem' }}>
-          {siteSettings?.tagline || 'Human Coaching · AI Transition'}
+          {siteSettings?.tagline || dict.hero.tagline}
         </p>
         <h1 style={{ fontSize: 'clamp(2.2rem, 5vw, 3.8rem)', fontWeight: 400, lineHeight: 1.15, color: 'var(--cream)', marginBottom: '2rem', letterSpacing: '-0.01em' }}>
           {heroHeadline}
@@ -57,11 +66,11 @@ export default function HomeClient({ siteSettings, hero, humanValues, journeys }
         <p style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '1.1rem', lineHeight: 1.7, color: 'rgba(245,240,235,0.75)', maxWidth: '600px', marginBottom: '2.5rem' }}>
           {heroBody}
         </p>
-        <Link href='/assessments' style={{ display: 'inline-block', background: 'var(--coral)', color: 'white', fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '1rem 2rem', textDecoration: 'none', marginRight: '1rem' }}>
-          Start a Diagnostic
+        <Link href={assessments} style={{ display: 'inline-block', background: 'var(--coral)', color: 'white', fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '1rem 2rem', textDecoration: 'none', marginRight: '1rem' }}>
+          {dict.hero.ctaPrimary}
         </Link>
         <a href='#book' style={{ display: 'inline-block', color: 'var(--coral)', fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '1rem 0', textDecoration: 'none' }}>
-          Book a Strategy Call
+          {dict.hero.ctaSecondary}
         </a>
       </section>
 
@@ -69,16 +78,16 @@ export default function HomeClient({ siteSettings, hero, humanValues, journeys }
       <section style={{ borderTop: '1px solid rgba(255,255,255,0.08)', padding: '5rem 2rem' }}>
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
           <p style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(245,240,235,0.4)', marginBottom: '1.5rem' }}>
-            Free Diagnostics
+            {dict.diagnostics.label}
           </p>
           <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', fontWeight: 400, color: 'var(--cream)', marginBottom: '1.5rem', lineHeight: 1.25 }}>
-            Start by understanding where you actually stand.
+            {dict.diagnostics.heading}
           </h2>
           <p style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '1rem', lineHeight: 1.7, color: 'rgba(245,240,235,0.7)', maxWidth: '580px', marginBottom: '2.5rem' }}>
-            Six diagnostic assessments, each taking four to twelve minutes. They cover leadership exposure, team dynamics, career positioning, and personal decisions under AI disruption. Each produces a personalised result and a PDF report.
+            {dict.diagnostics.body}
           </p>
-          <Link href='/assessments' style={{ display: 'inline-block', background: 'transparent', color: 'var(--coral)', fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '0.875rem 1.75rem', textDecoration: 'none', border: '1px solid var(--coral)' }}>
-            View All Assessments
+          <Link href={assessments} style={{ display: 'inline-block', background: 'transparent', color: 'var(--coral)', fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '0.875rem 1.75rem', textDecoration: 'none', border: '1px solid var(--coral)' }}>
+            {dict.diagnostics.cta}
           </Link>
         </div>
       </section>
@@ -87,7 +96,7 @@ export default function HomeClient({ siteSettings, hero, humanValues, journeys }
       <section style={{ borderTop: '1px solid rgba(255,255,255,0.08)', borderBottom: '1px solid rgba(255,255,255,0.08)', padding: '5rem 2rem' }}>
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
           <p style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(245,240,235,0.4)', marginBottom: '3rem' }}>
-            Why Human Coaching
+            {dict.humanValue.label}
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '3rem' }}>
             {humanValues.map(({ title, body }) => (
@@ -105,24 +114,22 @@ export default function HomeClient({ siteSettings, hero, humanValues, journeys }
       <section style={{ padding: '5rem 2rem' }}>
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
           <p style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(245,240,235,0.4)', marginBottom: '1.5rem' }}>
-            What You Get
+            {dict.whatYouGet.label}
           </p>
           <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', fontWeight: 400, color: 'var(--cream)', marginBottom: '3rem', lineHeight: 1.25 }}>
-            A result, a report, and a clear next step.
+            {dict.whatYouGet.heading}
           </h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '2.5rem' }}>
-            {[
-              { label: '01', title: 'Your tier', body: 'A calibrated position — Ready, Almost Ready, or Not Yet — with an honest account of what it means.' },
-              { label: '02', title: 'Dimension scores', body: 'Where your exposure is concentrated and where your strengths are strongest.' },
-              { label: '03', title: 'A PDF report', body: 'Sent immediately by email. Private, no login required, yours to keep.' },
-              { label: '04', title: 'A coaching prompt', body: 'A direct invitation to a strategy session, calibrated to your result.' },
-            ].map(({ label, title, body }) => (
+            {dict.whatYouGet.items.map(({ title, body }, i) => {
+              const label = String(i + 1).padStart(2, '0');
+              return (
               <div key={label}>
                 <p style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.7rem', color: 'var(--coral)', letterSpacing: '0.2em', marginBottom: '0.75rem' }}>{label}</p>
                 <h3 style={{ fontFamily: 'Georgia, serif', fontSize: '1rem', fontWeight: 400, color: 'var(--cream)', marginBottom: '0.5rem' }}>{title}</h3>
                 <p style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.875rem', lineHeight: 1.65, color: 'rgba(245,240,235,0.6)' }}>{body}</p>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -131,13 +138,13 @@ export default function HomeClient({ siteSettings, hero, humanValues, journeys }
       <section style={{ borderTop: '1px solid rgba(255,255,255,0.08)', padding: '5rem 2rem' }}>
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
           <p style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(245,240,235,0.4)', marginBottom: '1.5rem' }}>
-            Coaching Journeys
+            {dict.journeys.label}
           </p>
           <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', fontWeight: 400, color: 'var(--cream)', marginBottom: '1rem', lineHeight: 1.25 }}>
-            The Deep Navigation Scan is where the work begins.
+            {dict.journeys.heading}
           </h2>
           <p style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '1rem', lineHeight: 1.7, color: 'rgba(245,240,235,0.7)', maxWidth: '580px', marginBottom: '3rem' }}>
-            A structured diagnostic engagement — four to six hours across two sessions — that maps your professional position in detail. It is the foundation for all subsequent coaching work.
+            {dict.journeys.body}
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2.5rem' }}>
             {journeys.map(({ title, description }) => (
@@ -154,17 +161,17 @@ export default function HomeClient({ siteSettings, hero, humanValues, journeys }
       <section id='book' style={{ borderTop: '1px solid rgba(255,255,255,0.08)', padding: '6rem 2rem' }}>
         <div style={{ maxWidth: '640px', margin: '0 auto', textAlign: 'center' }}>
           <p style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--coral)', marginBottom: '1.5rem' }}>
-            Strategy Session
+            {dict.book.label}
           </p>
           <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 400, color: 'var(--cream)', marginBottom: '1.5rem', lineHeight: 1.2 }}>
-            Forty-five minutes. Confidential. No obligation.
+            {dict.book.heading}
           </h2>
           <p style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '1rem', lineHeight: 1.7, color: 'rgba(245,240,235,0.7)', marginBottom: '2.5rem' }}>
-            Book a private strategy session to discuss your assessment results or your situation directly. This is not a sales call.
+            {dict.book.body}
           </p>
           {siteSettings?.defaultCalendarUrl ? (
             <a href={bookingUrl} style={{ display: 'inline-block', background: 'var(--coral)', color: 'white', fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '1.1rem 2.5rem', textDecoration: 'none' }}>
-              Book a Strategy Session
+              {dict.book.cta}
             </a>
           ) : (
             <StrategyCallForm bookingEmail={siteSettings?.bookingEmail || 'russell@fab.partners'} />
@@ -175,7 +182,7 @@ export default function HomeClient({ siteSettings, hero, humanValues, journeys }
       {/* Footer */}
       <footer style={{ borderTop: '1px solid rgba(255,255,255,0.08)', padding: '2rem', textAlign: 'center' }}>
         <p style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '0.75rem', color: 'rgba(245,240,235,0.3)', letterSpacing: '0.1em' }}>
-          © {new Date().getFullYear()} fab.partners · <a href='/privacy' style={{ color: 'rgba(245,240,235,0.3)', textDecoration: 'none' }}>Privacy</a>
+          © {new Date().getFullYear()} fab.partners · <Link href={privacy} style={{ color: 'rgba(245,240,235,0.3)', textDecoration: 'none' }}>{dict.footer.privacy}</Link>
         </p>
       </footer>
 

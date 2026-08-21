@@ -26,7 +26,7 @@ export default defineType({
   fields: [
     // ── Existing fields (unchanged) ─────────────────────────────────────
     defineField({ name: 'title', title: 'Site Title', type: 'string', group: 'general' }),
-    defineField({ name: 'tagline', title: 'Tagline', type: 'string', group: 'general' }),
+    defineField({ name: 'tagline', title: 'Tagline', type: 'localeString', group: 'general' }),
     defineField({ name: 'bookingEmail', title: 'Booking Email', type: 'string', group: 'general' }),
     defineField({
       name: 'scanPrice',

@@ -5,6 +5,7 @@ import { ConsentProvider } from "@/components/ConsentProvider";
 import { CookieBanner } from "@/components/CookieBanner";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import Footer from "@/components/Footer";
+import HtmlLang from "@/components/HtmlLang";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,10 +40,11 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="en-GB"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <HtmlLang />
         <GoogleAnalytics />
         <ConsentProvider>
           {children}
