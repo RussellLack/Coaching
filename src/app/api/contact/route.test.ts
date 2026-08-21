@@ -65,7 +65,7 @@ const VALID = {
 let fetchMock: ReturnType<typeof vi.fn>
 
 beforeEach(() => {
-  vi.stubEnv('CONTACT_EMAIL', 'hello@fab.partners')
+  vi.stubEnv('CONTACT_EMAIL', 'russell@fab.partners')
   vi.stubEnv('POSTMARK_FROM', 'Fab Partners <no-reply@fab.partners>')
   vi.stubEnv('POSTMARK_SERVER_TOKEN', 'test-token')
   fetchMock = vi.fn(async () => new Response('{}', { status: 200 }))
@@ -89,7 +89,7 @@ describe('POST /api/contact', () => {
     expect(calls).toHaveLength(2)
 
     const [notification, confirmation] = calls
-    expect(notification.To).toBe('hello@fab.partners')
+    expect(notification.To).toBe('russell@fab.partners')
     expect(notification.ReplyTo).toBe('Ada Lovelace <ada@example.com>')
     expect(notification.Subject).toBe('Strategy session enquiry — Ada Lovelace')
     expect(notification.TextBody).toContain('ada@example.com')
@@ -98,7 +98,7 @@ describe('POST /api/contact', () => {
     )
 
     expect(confirmation.To).toBe('Ada Lovelace <ada@example.com>')
-    expect(confirmation.ReplyTo).toBe('hello@fab.partners')
+    expect(confirmation.ReplyTo).toBe('russell@fab.partners')
     expect(confirmation.HtmlBody).toContain('Ada Lovelace')
   })
 

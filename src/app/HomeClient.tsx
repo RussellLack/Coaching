@@ -17,7 +17,7 @@ interface Props {
 }
 
 export default function HomeClient({ siteSettings, hero, humanValues, journeys }: Props) {
-  const bookingUrl = siteSettings?.defaultCalendarUrl || `mailto:${siteSettings?.bookingEmail || 'hello@fab.partners'}`;
+  const bookingUrl = siteSettings?.defaultCalendarUrl || `mailto:${siteSettings?.bookingEmail || 'russell@fab.partners'}`;
   const heroHeadline = hero?.headline || 'Your expertise is not in decline. Its context has changed.';
   const heroBody = hero?.body || 'Executive OS is a private coaching practice for senior professionals navigating AI disruption.';
 
@@ -167,7 +167,7 @@ export default function HomeClient({ siteSettings, hero, humanValues, journeys }
               Book a Strategy Session
             </a>
           ) : (
-            <StrategyCallForm bookingEmail={siteSettings?.bookingEmail || 'hello@fab.partners'} />
+            <StrategyCallForm bookingEmail={siteSettings?.bookingEmail || 'russell@fab.partners'} />
           )}
         </div>
       </section>

@@ -52,7 +52,7 @@ const fieldStyle: React.CSSProperties = {
 };
 
 export default function StrategyCallForm({
-  bookingEmail = "hello@fab.partners",
+  bookingEmail = "russell@fab.partners",
 }: {
   bookingEmail?: string;
 }) {

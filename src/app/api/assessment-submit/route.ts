@@ -91,7 +91,7 @@ export async function POST(request: Request) {
   // Send the primary email. If Resend isn't configured, skip silently (dev mode).
   const resendApiKey = process.env.RESEND_API_KEY
   const resendFrom =
-    process.env.RESEND_FROM_EMAIL ?? 'Fab Partners <hello@fab.partners>'
+    process.env.RESEND_FROM_EMAIL ?? 'Fab Partners <russell@fab.partners>'
 
   // Resend client is constructed once and shared between the primary
   // email and the combination nudge so we don't import the SDK twice.

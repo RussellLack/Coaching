@@ -27,7 +27,7 @@ export function PostResultCTA({ tierId, bookingUrl }: PostResultCTAProps) {
 
   const ctaLabel = isNotYet ? "Get in touch" : "Book a Strategy Session";
   const ctaHref = isNotYet
-    ? "mailto:hello@fab.partners?subject=Enquiry following assessment result"
+    ? "mailto:russell@fab.partners?subject=Enquiry following assessment result"
     : bookingUrl;
   const isPrimary = isNotYet === false;
 

@@ -44,7 +44,7 @@ export default function PrivacyPage() {
       <p>
         This notice explains what we collect, why, how long we keep it, and
         what rights you have. It applies to fab.partners and to the coaching
-        engagements that follow from it. Last updated: 25 May 2026.
+        engagements that follow from it. Last updated: 21 August 2026.
       </p>
 
       <h2 style={sectionHeading}>Who we are</h2>
@@ -52,8 +52,8 @@ export default function PrivacyPage() {
         The data controller is <strong>Fab Partners AS</strong>,
         organisasjonsnummer 932 443 511, registered at Sognsveien 118C,
         0860 Oslo, Norway. For any question about your data, contact{" "}
-        <a href="mailto:hello@fab.partners" style={linkStyle}>
-          hello@fab.partners
+        <a href="mailto:russell@fab.partners" style={linkStyle}>
+          russell@fab.partners
         </a>
         .
       </p>
@@ -75,7 +75,7 @@ export default function PrivacyPage() {
       <h2 style={sectionHeading}>What we collect when you contact us</h2>
       <p>
         If you take the free snapshot, request a strategy session, or email
-        us at hello@fab.partners, we receive whatever you choose to share —
+        us at russell@fab.partners, we receive whatever you choose to share —
         typically a name, an email address, and a short description of your
         situation. We use this only to respond to you. We do not add you to
         a mailing list, and we do not pass your details to any third party.
@@ -117,8 +117,8 @@ export default function PrivacyPage() {
         corrected if it is wrong, to have it deleted, to restrict or object
         to its processing, and to receive a copy in a portable format.
         Email{" "}
-        <a href="mailto:hello@fab.partners" style={linkStyle}>
-          hello@fab.partners
+        <a href="mailto:russell@fab.partners" style={linkStyle}>
+          russell@fab.partners
         </a>{" "}
         and we will respond within one business day, and complete the
         request within one month. If you believe we have mishandled your
